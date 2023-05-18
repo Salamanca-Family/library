@@ -21,13 +21,14 @@ public class Options {
 		if(instance != null) {
 			return;
 		}
-		instance = getInstance();
+		instance = new Options();
 		instance.logIn = logIn;
 	}
 
 	public static Options getInstance() {
 		if(instance == null) {
-			instance = new Options();
+			System.out.println("Options must be initialized first");
+			return null;
 		}
 		return instance;
 	}
@@ -50,6 +51,7 @@ public class Options {
 			return;
 		}
 		library.hide();
+		library = null;
 		logIn.show();
 	}
 

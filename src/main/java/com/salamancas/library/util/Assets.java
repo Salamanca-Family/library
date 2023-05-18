@@ -1,6 +1,5 @@
 package com.salamancas.library.util;
 
-import com.salamancas.library.ui.LibraryApplication;
 import javafx.scene.image.Image;
 
 import java.net.URL;

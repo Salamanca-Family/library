@@ -30,4 +30,15 @@ public class MainController implements Initializable {
 		username.setText(options.getLoggedInUser().getName());
 	}
 
+	@FXML
+	private void profile() {
+
+	}
+
+	@FXML
+	private void signOut() {
+		options.setLoggedInUser(null);
+		options.switchStage();
+	}
+
 }
