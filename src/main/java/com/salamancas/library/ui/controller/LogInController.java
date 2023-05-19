@@ -8,11 +8,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LogInController {
+public class LogInController implements Initializable {
 
 	@FXML
 	private PasswordField password;
@@ -23,6 +25,16 @@ public class LogInController {
 
 	SQLUtils sqlUtils;
 	Options options;
+
+	@Override
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+		username.getParent().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+			if(event.getCode() == KeyCode.ENTER) {
+				logIn();
+				event.consume();
+			}
+		});
+	}
 
 	@FXML
 	void logIn() {
@@ -36,8 +48,12 @@ public class LogInController {
 			incorrectPassword.setVisible(true);
 			return;
 		}
-		options.setLoggedInUser(librarianAccount);
+
+		username.setText("");
 		password.setText("");
+		incorrectPassword.setVisible(false);
+
+		options.setLoggedInUser(librarianAccount);
 		options.switchStage();
 	}
 
