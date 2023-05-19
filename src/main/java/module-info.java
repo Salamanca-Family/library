@@ -10,4 +10,5 @@ module com.salamancas.library {
 	opens com.salamancas.library.ui to javafx.fxml;
 	exports com.salamancas.library.ui.controller;
 	opens com.salamancas.library.ui.controller to javafx.fxml;
+	exports com.salamancas.library.ui.controller.categories to javafx.fxml;
 }

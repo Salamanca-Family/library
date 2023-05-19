@@ -1,3 +1,11 @@
-.books:hover, .users:hover, .transaction:hover, .settings:hover{
+.categoryButton:hover {
     -fx-background-color: #a0a0a0;
+}
+
+.selected {
+    -fx-background-color: #787878;
+}
+
+.selected:hover {
+    -fx-background-color: #646464;
 }

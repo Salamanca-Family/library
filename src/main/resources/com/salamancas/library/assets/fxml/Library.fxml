@@ -30,7 +30,7 @@
                 <MenuItem mnemonicParsing="false" onAction="#signOut" text="Sign Out" />
               </items>
             </MenuButton>
-            <Label layoutY="137.0" prefWidth="225.0" styleClass="books" text="Knjige">
+            <Label fx:id="booksButton" layoutY="137.0" onMouseClicked="#books" prefWidth="225.0" styleClass="categoryButton" text="Knjige">
                <padding>
                   <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
                </padding>
@@ -41,7 +41,7 @@
                   <ImageView fx:id="bookIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Label>
-            <Label layoutY="247.0" prefWidth="225.0" styleClass="users" text="Korisnici">
+            <Label fx:id="usersButton" layoutY="247.0" onMouseClicked="#users" prefWidth="225.0" styleClass="categoryButton" text="Korisnici">
                <padding>
                   <Insets bottom="30.0" left="35.0" right="35.0" top="30.0" />
                </padding>
@@ -52,7 +52,7 @@
                   <ImageView fx:id="usersIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Label>
-            <Label layoutY="357.0" prefWidth="225.0" styleClass="transaction" text="Transakcije">
+            <Label fx:id="transactionsButton" layoutY="357.0" onMouseClicked="#transactions" prefWidth="225.0" styleClass="categoryButton" text="Transakcije">
                <padding>
                   <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
                </padding>
@@ -63,7 +63,7 @@
                   <ImageView fx:id="transactionIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Label>
-            <Label layoutY="658.0" prefWidth="225.0" styleClass="settings" text="Podešavanja">
+            <Label fx:id="settingsButton" layoutY="658.0" prefWidth="225.0" styleClass="categoryButton" text="Podešavanja">
                <padding>
                   <Insets bottom="30.0" left="15.0" right="15.0" top="30.0" />
                </padding>

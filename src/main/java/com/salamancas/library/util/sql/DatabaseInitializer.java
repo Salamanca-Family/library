@@ -50,7 +50,7 @@ public class DatabaseInitializer {
 				INSERT INTO USER (USER_NAME, USER_SURNAME, USER_ADRESS) VALUES ('Luka', 'Nedeljkov', 'Djordja Zličića 23');
 				INSERT INTO TYPE_OF_USER (TYPE_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (4, 2, '2023-5-18', null);
 				INSERT INTO TOWN_OF_USER (USER_ID, TOWN_ID, DATE_FROM, DATE_TO) VALUES (1, 2, '2023-5-18', null);
-				INSERT INTO ACCOUNT (ACCOUNT_ID, USER_ID, ACCOUNT_USERNAME, ACCOUNT_PASSWORD) VALUES (1, 1, 'admin', password('admin');
+				INSERT INTO ACCOUNT (ACCOUNT_ID, USER_ID, ACCOUNT_USERNAME, ACCOUNT_PASSWORD) VALUES (1, 1, 'admin', 'admin');
 			""";
 
 	public static void initializeDatabase() {
