@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.salamancas.library.ui.controller.MainController">
+   <children>
+      <Pane prefHeight="768.0" prefWidth="225.0" style="-fx-background-color: #dddddd;">
+         <children>
+            <ImageView fx:id="userIcon" fitHeight="50.0" fitWidth="50.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+            <HBox alignment="CENTER" layoutX="73.0" layoutY="14.0" prefHeight="20.0" prefWidth="125.0">
+               <children>
+                  <Label fx:id="username" text="Label">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <MenuButton layoutX="75.0" layoutY="39.0" mnemonicParsing="false" text="Account Settings">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#profile" text="Profile" />
+                <MenuItem mnemonicParsing="false" onAction="#signOut" text="Sign Out" />
+              </items>
+            </MenuButton>
+            <Label layoutY="137.0" prefWidth="225.0" styleClass="books" text="Knjige">
+               <padding>
+                  <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+               <graphic>
+                  <ImageView fx:id="bookIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Label>
+            <Label layoutY="247.0" prefWidth="225.0" styleClass="users" text="Korisnici">
+               <padding>
+                  <Insets bottom="30.0" left="35.0" right="35.0" top="30.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+               <graphic>
+                  <ImageView fx:id="usersIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Label>
+            <Label layoutY="357.0" prefWidth="225.0" styleClass="transaction" text="Transakcije">
+               <padding>
+                  <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+               <graphic>
+                  <ImageView fx:id="transactionIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Label>
+            <Label layoutY="658.0" prefWidth="225.0" styleClass="settings" text="Podešavanja">
+               <padding>
+                  <Insets bottom="30.0" left="15.0" right="15.0" top="30.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+               <graphic>
+                  <ImageView fx:id="settingsIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Label>
+         </children>
+      </Pane>
+      <AnchorPane fx:id="container" layoutX="225.0" prefHeight="768.0" prefWidth="799.0" />
+   </children>
+</AnchorPane>

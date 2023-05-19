@@ -1,4 +1,4 @@
-package com.salamancas.library.util;
+package com.salamancas.library.util.sql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,6 +18,14 @@ public class SQLUtils {
 			instance = new SQLUtils();
 		}
 		return instance;
+	}
+
+	public void createTables(String sql) {
+		try {
+			connect();
+			connection.createStatement().execute(sql);
+			disconnect();
+		} catch(SQLException ignored) {}
 	}
 
 	public void executeQuery(String sql) {

@@ -38,7 +38,9 @@ public class Options {
 			try {
 				Stage library = new Stage();
 				FXMLLoader fxmlLoader = new FXMLLoader(Assets.library);
-				library.setScene(new Scene(fxmlLoader.load()));
+				Scene scene = new Scene(fxmlLoader.load());
+				scene.getStylesheets().add(getClass().getResource("/com/salamancas/library/assets/css/main.css").toExternalForm());
+				library.setScene(scene);
 				library.setTitle("Library");
 				this.library = library;
 			} catch(IOException e) {

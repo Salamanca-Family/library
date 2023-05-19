@@ -13,6 +13,6 @@
       <Label fx:id="incorrectPassword" layoutX="58.0" layoutY="117.0" text="Pogrešno korisničko ime ili lozinka" textFill="RED" underline="true" visible="false" />
       <TextField fx:id="username" layoutX="102.0" layoutY="37.0" />
       <PasswordField fx:id="password" layoutX="102.0" layoutY="88.0" />
-      <Button layoutX="125.0" layoutY="137.0" mnemonicParsing="false" onAction="#logIn" text="Log in" />
+      <Button layoutX="125.0" layoutY="137.0" mnemonicParsing="false" onAction="#authenticate" text="Log in" />
    </children>
 </AnchorPane>

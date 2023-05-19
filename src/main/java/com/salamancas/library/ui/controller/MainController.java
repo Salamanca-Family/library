@@ -1,15 +1,12 @@
 package com.salamancas.library.ui.controller;
 
-import com.salamancas.library.model.database.LibrarianAccount;
 import com.salamancas.library.util.Assets;
 import com.salamancas.library.util.Options;
-import com.salamancas.library.util.SQLUtils;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,16 +14,30 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
 	@FXML
-	private ImageView icon;
+	private ImageView userIcon;
+	@FXML
+	private ImageView bookIcon;
 	@FXML
 	private Label username;
+	@FXML
+	private ImageView usersIcon;
+	@FXML
+	private ImageView transactionIcon;
+	@FXML
+	private ImageView settingsIcon;
+	@FXML
+	private AnchorPane container;
 
 	Options options;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		options = Options.getInstance();
-		icon.setImage(Assets.userIcon);
+		userIcon.setImage(Assets.userIcon);
+		bookIcon.setImage(Assets.bookIcon);
+		usersIcon.setImage(Assets.usersIcon);
+		transactionIcon.setImage(Assets.transactionIcon);
+		settingsIcon.setImage(Assets.settingsIcon);
 		username.setText(options.getLoggedInUser().getName());
 	}
 
