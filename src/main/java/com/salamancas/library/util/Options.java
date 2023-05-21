@@ -41,6 +41,7 @@ public class Options {
 				Scene scene = new Scene(fxmlLoader.load());
 				scene.getStylesheets().add(getClass().getResource("/com/salamancas/library/assets/css/main.css").toExternalForm());
 				library.setScene(scene);
+				library.setResizable(false);
 				library.setTitle("Library");
 				this.library = library;
 			} catch(IOException e) {

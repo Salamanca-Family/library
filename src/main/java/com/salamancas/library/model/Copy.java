@@ -15,6 +15,7 @@ public class Copy {
 	private StringProperty serial;
 	private StringProperty title;
 	private StringProperty publisher;
+	private StringProperty status;
 	private String isbn;
 	private String isbnOld;
 
@@ -52,6 +53,15 @@ public class Copy {
 
 	public int getId() {
 		return id;
+	}
+
+	private void statusParser(){
+		if(status.getValue() == null){
+			status.setValue("nije na stanju");
+		}
+		else{
+			status.setValue("na stanju");
+		}
 	}
 
 	public void setId(int id) {
@@ -125,6 +135,16 @@ public class Copy {
 	public void setIsbnOld(String isbnOld) {
 		this.isbnOld = isbnOld;
 	}
+
+	public String getStatus(){
+		return status.get();
+	}
+
+	public StringProperty statusProperty() {
+		return status;
+	}
+	public void setStatus(String status){this.status.set(status);}
+
 
 	@Override
 	public String toString() {

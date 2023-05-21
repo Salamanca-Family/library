@@ -16,6 +16,7 @@ public class LibraryApplication extends Application {
 
 		FXMLLoader fxmlLoader = new FXMLLoader(Assets.logIn);
 		logIn.setScene(new Scene(fxmlLoader.load()));
+		logIn.setResizable(false);
 		logIn.setTitle("Library");
 		logIn.show();
 	}
