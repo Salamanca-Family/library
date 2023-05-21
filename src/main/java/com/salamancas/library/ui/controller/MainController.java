@@ -2,7 +2,6 @@ package com.salamancas.library.ui.controller;
 
 import com.salamancas.library.util.Assets;
 import com.salamancas.library.util.Options;
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,9 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URL;
@@ -60,6 +56,8 @@ public class MainController implements Initializable {
 		transactionIcon.setImage(Assets.transactionIcon);
 		settingsIcon.setImage(Assets.settingsIcon);
 		username.setText(options.getLoggedInUser().getName());
+
+		books();
 	}
 
 	@FXML
@@ -76,40 +74,22 @@ public class MainController implements Initializable {
 	@FXML
 	private void books() {
 		FXMLLoader loader = new FXMLLoader(Assets.books);
-		try {
-			ObservableList<Node> list = container.getChildren();
-			if(list.size() == 0) {
-				list.add(loader.load());
-			} else {
-				list.set(0, loader.load());
-			}
-			clearButtonColor();
-			booksButton.getStyleClass().add("selected");
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
+		switchCategory(loader, booksButton);
 	}
 
 	@FXML
 	private void users() {
 		FXMLLoader loader = new FXMLLoader(Assets.users);
-		try {
-			ObservableList<Node> list = container.getChildren();
-			if(list.size() == 0) {
-				list.add(loader.load());
-			} else {
-				list.set(0, loader.load());
-			}
-			clearButtonColor();
-			usersButton.getStyleClass().add("selected");
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
+		switchCategory(loader, usersButton);
 	}
 
 	@FXML
 	private void transactions() {
 		FXMLLoader loader = new FXMLLoader(Assets.transaction);
+		switchCategory(loader, transactionsButton);
+	}
+
+	private void switchCategory(FXMLLoader loader, Label transactionsButton) {
 		try {
 			ObservableList<Node> list = container.getChildren();
 			if(list.size() == 0) {

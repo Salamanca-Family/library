@@ -1,4 +1,4 @@
-package com.salamancas.library.model.database;
+package com.salamancas.library.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

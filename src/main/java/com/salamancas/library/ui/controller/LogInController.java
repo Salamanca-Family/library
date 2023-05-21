@@ -1,6 +1,6 @@
 package com.salamancas.library.ui.controller;
 
-import com.salamancas.library.model.database.LibrarianAccount;
+import com.salamancas.library.model.LibrarianAccount;
 import com.salamancas.library.util.Options;
 import com.salamancas.library.util.sql.SQLUtils;
 import javafx.fxml.FXML;
