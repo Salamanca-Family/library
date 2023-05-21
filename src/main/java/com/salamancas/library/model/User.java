@@ -5,7 +5,14 @@ import javafx.beans.property.StringProperty;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.Period;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class User {
 
@@ -18,7 +25,6 @@ public class User {
 	private StringProperty type;
 	private String year;
 	private StringProperty schoolClass;
-	private StringProperty homeroomTo;
 
 	public static ArrayList<User> fromResultSet(ResultSet rs) {
 		ArrayList<User> list = new ArrayList<>();
@@ -32,9 +38,8 @@ public class User {
 						rs.getString(5),
 						rs.getString(6),
 						rs.getString(7),
-						rs.getString(8),
-						rs.getString(9) == null ? "" : rs.getString(9),
-						rs.getString(10) == null ? "" : rs.getString(10)
+						rs.getString(8) == null ? rs.getString(9) : rs.getString(8),
+						rs.getString(10) == null ? rs.getString(11) : rs.getString(10)
 				));
 			}
 		} catch(SQLException se) {
@@ -43,7 +48,7 @@ public class User {
 		return list;
 	}
 
-	public User(int id, int classId, int homeroomToId, int typeId, String name, String surname, String type, String year, String schoolClass, String homeroomTo) {
+	public User(int id, int classId, int homeroomToId, int typeId, String name, String surname, String type, String year, String schoolClass) {
 		this.id = id;
 		this.classId = classId;
 		this.homeroomToId = homeroomToId;
@@ -53,7 +58,24 @@ public class User {
 		this.type = new SimpleStringProperty(type);
 		this.year = year;
 		this.schoolClass = new SimpleStringProperty(schoolClass);
-		this.homeroomTo = new SimpleStringProperty(homeroomTo);
+		classParser();
+	}
+
+	private void classParser() {
+		if(year == null) {
+			return;
+		}
+		LocalDate currentDate = LocalDate.now();
+		LocalDate start = LocalDate.of(Integer.parseInt(year), Month.SEPTEMBER, 1);
+		StringBuilder classIndex = new StringBuilder();
+		switch(Period.between(start, currentDate).getYears() + 1) {
+			case 1 -> classIndex.append("I-").append(schoolClass.getValue());
+			case 2 -> classIndex.append("II-").append(schoolClass.getValue());
+			case 3 -> classIndex.append("III-").append(schoolClass.getValue());
+			case 4 -> classIndex.append("IV-").append(schoolClass.getValue());
+			default -> classIndex.append(year).append("-").append(schoolClass.getValue());
+		}
+		schoolClass.setValue(classIndex.toString());
 	}
 
 	public int getId() {
@@ -142,18 +164,6 @@ public class User {
 
 	public void setSchoolClass(String schoolClass) {
 		this.schoolClass.set(schoolClass);
-	}
-
-	public String getHomeroomTo() {
-		return homeroomTo.get();
-	}
-
-	public StringProperty homeroomToProperty() {
-		return homeroomTo;
-	}
-
-	public void setHomeroomTo(String homeroomTo) {
-		this.homeroomTo.set(homeroomTo);
 	}
 
 	@Override
