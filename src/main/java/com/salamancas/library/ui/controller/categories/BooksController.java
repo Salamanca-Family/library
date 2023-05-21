@@ -56,8 +56,7 @@ public class BooksController implements Initializable {
 				select BOOK.BOOK_ID, A.AUTHOR_ID, BOOK_TITLE, AUTHOR_NAME
 				from BOOK
 				inner join AUTHOR_OF_BOOK AOB on BOOK.BOOK_ID = AOB.BOOK_ID
-				inner join AUTHOR A on A.AUTHOR_ID = AOB.AUTHOR_ID;
-													""");
+				inner join AUTHOR A on A.AUTHOR_ID = AOB.AUTHOR_ID;""");
 
 		ObservableList<Book> list = FXCollections.observableArrayList(Book.fromResultSet(rs));
 		FilteredList<Book> filteredList = new FilteredList<>(list);
@@ -83,8 +82,7 @@ public class BooksController implements Initializable {
 				select COPY_ID, B.BOOK_ID, P.PUBLISHER_ID, COPY_SERIAL_NUMBER, BOOK_TITLE, PUBLISHER_NAME, COPY_ISBN, COPY_ISBN_OLD
 				from COPY
 				inner join BOOK B on B.BOOK_ID = COPY.BOOK_ID
-				inner join PUBLISHER P on P.PUBLISHER_ID = COPY.PUBLISHER_ID;
-													""");
+				inner join PUBLISHER P on P.PUBLISHER_ID = COPY.PUBLISHER_ID;""");
 
 		ObservableList<Copy> list = FXCollections.observableArrayList(Copy.fromResultSet(rs));
 		FilteredList<Copy> filteredList = new FilteredList<>(list);
@@ -103,37 +101,37 @@ public class BooksController implements Initializable {
 	}
 
 	@FXML
-	void bookAdd() {
+	private void bookAdd() {
 
 	}
 
 	@FXML
-	void bookEdit() {
+	private void bookEdit() {
 
 	}
 
 	@FXML
-	void bookDelete() {
+	private void bookDelete() {
 
 	}
 
 	@FXML
-	void copyAdd() {
+	private void copyAdd() {
 
 	}
 
 	@FXML
-	void copyEdit() {
+	private void copyEdit() {
 
 	}
 
 	@FXML
-	void copyDelete() {
+	private void copyDelete() {
 
 	}
 
 	@FXML
-	void copyDetails() {
+	private void copyDetails() {
 		Copy copy = tblCopies.getSelectionModel().getSelectedItem();
 		if(copy == null) {
 			alert(Alert.AlertType.WARNING, "Warning", "Niste izabrali primerak", "Molimo Vas izaberite primerak");

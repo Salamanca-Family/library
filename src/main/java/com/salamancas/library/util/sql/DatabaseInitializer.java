@@ -11,7 +11,7 @@ public class DatabaseInitializer {
 			drop table if exists BOOK;
 			drop table if exists BORROW;
 			drop table if exists CLASS;
-			drop table if exists CLASS_ELDER;
+			drop table if exists HOMEROOM_TEACHER;
 			drop table if exists COPY;
 			drop table if exists PUBLISHER;
 			drop table if exists STUDENT_IN_CLASS;
@@ -29,6 +29,7 @@ public class DatabaseInitializer {
 			USER_ID              INTEGER              primary key autoincrement,
 			USER_NAME            TEXT,
 			USER_SURNAME         TEXT,
+			USER_BIRTH_DATE      TEXT,
 			USER_ADRESS          TEXT
 			);
 			   
@@ -135,9 +136,9 @@ public class DatabaseInitializer {
 			);
 			   
 			--==============================================================
-			-- Table: CLASS_ELDER
+			-- Table: HOMEROOM_TEACHER
 			--==============================================================
-			create table CLASS_ELDER (
+			create table HOMEROOM_TEACHER (
 			CLASS_ID             INTEGER              not null,
 			USER_ID              INTEGER              not null,
 			DATE_FROM            TEXT                 not null,
@@ -238,11 +239,17 @@ public class DatabaseInitializer {
 			INSERT INTO TOWN (TOWN_ID, TOWN_NAME) VALUES (19, 'Parage');
 			INSERT INTO TOWN (TOWN_ID, TOWN_NAME) VALUES (20, 'Pivnice');
 			-- User
-			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_ADRESS) VALUES ('Administrator', '', '');
-			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_ADRESS) VALUES ('Luka', 'Nedeljkov', 'Djordja Zličića 23');
+			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADRESS) VALUES ('Administrator', '', '', '');
+			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADRESS) VALUES ('Luka', 'Nedeljkov', '2005-02-04', 'Djordja Zličića 23');
+			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADRESS) VALUES ('Relja', 'Djordjevic', '2004-04-25', 'Drvarska 1');
+			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADRESS) VALUES ('Stefan', 'Vasiljevic', '2004-03-19', 'Dimitrija Tucovica 3');
+			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADRESS) VALUES ('Svetlana', 'Erceg', '1975-01-01', 'Novosadska 1');
 			-- Type of user
-			INSERT INTO TYPE_OF_USER (TYPE_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (4, 1, '2023-5-18', null);
+			INSERT INTO TYPE_OF_USER (TYPE_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (4, 1, '2023-05-18', null);
 			INSERT INTO TYPE_OF_USER (TYPE_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (1, 2, '2023-05-18', null);
+			INSERT INTO TYPE_OF_USER (TYPE_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (1, 3, '2023-05-18', null);
+			INSERT INTO TYPE_OF_USER (TYPE_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (1, 4, '2023-05-18', null);
+			INSERT INTO TYPE_OF_USER (TYPE_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (2, 5, '2023-05-18', null);
 			-- Town of user
 			INSERT INTO TOWN_OF_USER (USER_ID, TOWN_ID, DATE_FROM, DATE_TO) VALUES (2, 1, '2023-5-18', null);
 			-- Account
@@ -270,7 +277,20 @@ public class DatabaseInitializer {
 			INSERT INTO COPY (BOOK_ID, PUBLISHER_ID, COPY_SERIAL_NUMBER, COPY_ISBN, COPY_ISBN_OLD) VALUES (2, 2, '1004', '974-1000000004', null);
 			INSERT INTO COPY (BOOK_ID, PUBLISHER_ID, COPY_SERIAL_NUMBER, COPY_ISBN, COPY_ISBN_OLD) VALUES (3, 1, '1005', '974-1000000005', null);
 			INSERT INTO COPY (BOOK_ID, PUBLISHER_ID, COPY_SERIAL_NUMBER, COPY_ISBN, COPY_ISBN_OLD) VALUES (3, 2, '1006', '974-1000000006', null);
-											""";
+			-- Year
+			INSERT INTO YEAR (YEAR_NAME) VALUES ('2019');
+			-- Class
+			INSERT INTO CLASS (YEAR_ID, CLASS_INDEX) VALUES (1, '1');
+			-- Student in Class
+			INSERT INTO STUDENT_IN_CLASS (CLASS_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (1, 2, '2023-05-21', null);
+			INSERT INTO STUDENT_IN_CLASS (CLASS_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (1, 3, '2023-05-21', null);
+			INSERT INTO STUDENT_IN_CLASS (CLASS_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (1, 4, '2023-05-21', '2023-05-22');
+			INSERT INTO STUDENT_IN_CLASS (CLASS_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (1, 4, '2023-05-22', '2023-05-23');
+			INSERT INTO STUDENT_IN_CLASS (CLASS_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (1, 4, '2023-05-23', null);
+			-- Homeroom Teacher
+			INSERT INTO HOMEROOM_TEACHER (CLASS_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (1, 5, '2023-05-21', 2023-05-22);
+			INSERT INTO HOMEROOM_TEACHER (CLASS_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (1, 5, '2023-05-22', '2023-05-23');
+			INSERT INTO HOMEROOM_TEACHER (CLASS_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (1, 5, '2023-05-23', null);""";
 
 	public static void initializeDatabase() {
 		File file = new File("data.db");
