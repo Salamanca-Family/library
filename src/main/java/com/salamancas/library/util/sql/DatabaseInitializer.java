@@ -241,7 +241,7 @@ public class DatabaseInitializer {
 			-- User
 			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADRESS) VALUES ('Administrator', '', '', '');
 			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADRESS) VALUES ('Luka', 'Nedeljkov', '2005-02-04', 'Djordja Zličića 23');
-			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADRESS) VALUES ('Relja', 'Djordjevic', '2004-04-25', 'Drvarska 1');
+			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADRESS) VALUES ('Relja', 'Djordjevic', '2004-04-25', 'Drvarska 8');
 			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADRESS) VALUES ('Stefan', 'Vasiljevic', '2004-03-19', 'Dimitrija Tucovica 3');
 			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADRESS) VALUES ('Svetlana', 'Erceg', '1975-01-01', 'Novosadska 1');
 			-- Type of user

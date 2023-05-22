@@ -16,6 +16,8 @@ public class Copy {
 	private StringProperty title;
 	private StringProperty publisher;
 	private StringProperty status;
+	private String date_from;
+	private String date_to;
 	private String isbn;
 	private String isbnOld;
 
@@ -31,7 +33,9 @@ public class Copy {
 					rs.getString(5),
 					rs.getString(6),
 					rs.getString(7),
-					rs.getString(8)
+					rs.getString(8),
+					rs.getString(9),
+					rs.getString(10)
 				));
 			}
 		} catch(SQLException se) {
@@ -40,7 +44,7 @@ public class Copy {
 		return list;
 	}
 
-	public Copy(int id, int bookId, int publisherId, String serial, String title, String publisher, String isbn, String isbnOld) {
+	public Copy(int id, int bookId, int publisherId, String serial, String title, String publisher, String isbn, String isbnOld, String date_from, String date_to) {
 		this.id = id;
 		this.bookId = bookId;
 		this.publisherId = publisherId;
@@ -49,19 +53,27 @@ public class Copy {
 		this.publisher = new SimpleStringProperty(publisher);
 		this.isbn = isbn;
 		this.isbnOld = isbnOld;
+		this.date_from = date_from;
+		this.date_to = date_to;
+		this.status = new SimpleStringProperty();
+		statusParser();
+	}
+
+	private void statusParser(){
+
+		if(date_to == null && date_from == null){
+			status.setValue("na stanju");
+			return;
+		}
+		if(date_to == null){
+			status.setValue("nije na stanju");
+			return;
+		}
+		status.setValue("na stanju");
 	}
 
 	public int getId() {
 		return id;
-	}
-
-	private void statusParser(){
-		if(status.getValue() == null){
-			status.setValue("nije na stanju");
-		}
-		else{
-			status.setValue("na stanju");
-		}
 	}
 
 	public void setId(int id) {

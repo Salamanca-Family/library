@@ -79,11 +79,11 @@ public class BooksController implements Initializable {
 		copyPublisher.setCellValueFactory(data -> data.getValue().publisherProperty());
 
 		ResultSet rs = sqlUtils.exequteSelectQuery("""
-				select COPY_ID, B.BOOK_ID, P.PUBLISHER_ID, COPY_SERIAL_NUMBER, BOOK_TITLE, PUBLISHER_NAME, COPY_ISBN, COPY_ISBN_OLD
+				select COPY.COPY_ID, B.BOOK_ID, P.PUBLISHER_ID, COPY_SERIAL_NUMBER, BOOK_TITLE, PUBLISHER_NAME, COPY_ISBN, COPY_ISBN_OLD, DATE_FROM, DATE_TO
 				from COPY
 				inner join BOOK B on B.BOOK_ID = COPY.BOOK_ID
-				inner join PUBLISHER P on P.PUBLISHER_ID = COPY.PUBLISHER_ID;""");
-
+				inner join PUBLISHER P on P.PUBLISHER_ID = COPY.PUBLISHER_ID
+				left join BORROW on BORROW.COPY_ID = COPY.COPY_ID;""");
 		ObservableList<Copy> list = FXCollections.observableArrayList(Copy.fromResultSet(rs));
 		FilteredList<Copy> filteredList = new FilteredList<>(list);
 		filteredList.setPredicate(data -> true);
@@ -99,7 +99,6 @@ public class BooksController implements Initializable {
 
 		tblCopies.setItems(filteredList);
 	}
-
 	@FXML
 	private void bookAdd() {
 
