@@ -90,8 +90,7 @@ public class DatabaseInitializer {
 			BOOK_ID              INTEGER,
 			PUBLISHER_ID         INTEGER,
 			COPY_SERIAL_NUMBER   TEXT,
-			COPY_ISBN            TEXT,
-			COPY_ISBN_OLD        TEXT,
+			COPY_ISBN            TEXT
 			foreign key (BOOK_ID)
 			      references BOOK (BOOK_ID),
 			foreign key (PUBLISHER_ID)
