@@ -30,7 +30,7 @@ public class DatabaseInitializer {
 			USER_NAME            TEXT,
 			USER_SURNAME         TEXT,
 			USER_BIRTH_DATE      TEXT,
-			USER_ADRESS          TEXT
+			USER_ADDRESS          TEXT
 			);
 			   
 			--==============================================================
@@ -239,11 +239,11 @@ public class DatabaseInitializer {
 			INSERT INTO TOWN (TOWN_ID, TOWN_NAME) VALUES (19, 'Parage');
 			INSERT INTO TOWN (TOWN_ID, TOWN_NAME) VALUES (20, 'Pivnice');
 			-- User
-			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADRESS) VALUES ('Administrator', '', '', '');
-			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADRESS) VALUES ('Luka', 'Nedeljkov', '2005-02-04', 'Djordja Zličića 23');
-			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADRESS) VALUES ('Relja', 'Djordjevic', '2004-04-25', 'Drvarska 8');
-			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADRESS) VALUES ('Stefan', 'Vasiljevic', '2004-03-19', 'Dimitrija Tucovica 3');
-			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADRESS) VALUES ('Svetlana', 'Erceg', '1975-01-01', 'Novosadska 1');
+			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADDRESS) VALUES ('Administrator', '', '', '');
+			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADDRESS) VALUES ('Luka', 'Nedeljkov', '2005-02-04', 'Djordja Zličića 23');
+			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADDRESS) VALUES ('Relja', 'Djordjevic', '2004-04-25', 'Drvarska 8');
+			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADDRESS) VALUES ('Stefan', 'Vasiljevic', '2004-03-19', 'Dimitrija Tucovica 3');
+			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADDRESS) VALUES ('Svetlana', 'Erceg', '1975-01-01', 'Novosadska 1');
 			-- Type of user
 			INSERT INTO TYPE_OF_USER (TYPE_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (4, 1, '2023-05-18', null);
 			INSERT INTO TYPE_OF_USER (TYPE_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (1, 2, '2023-05-18', null);
