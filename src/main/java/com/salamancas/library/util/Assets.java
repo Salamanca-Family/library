@@ -12,6 +12,8 @@ public class Assets {
 	public static URL users = Assets.class.getResource("/com/salamancas/library/assets/fxml/categories/Users.fxml");
 	public static URL transaction = Assets.class.getResource("/com/salamancas/library/assets/fxml/categories/Transactions.fxml");
 
+	public static URL userDialog = Assets.class.getResource("/com/salamancas/library/assets/fxml/dialog/User.fxml");
+
 	public static Image userIcon = new Image(Assets.class.getResourceAsStream("/com/salamancas/library/assets/images/user_icon.png"));
 	public static Image bookIcon = new Image(Assets.class.getResourceAsStream("/com/salamancas/library/assets/images/book_icon.png"));
 	public static Image transactionIcon = new Image(Assets.class.getResourceAsStream("/com/salamancas/library/assets/images/transaction_icon.png"));

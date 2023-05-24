@@ -57,7 +57,7 @@ public class MainController implements Initializable {
 		settingsIcon.setImage(Assets.settingsIcon);
 		username.setText(options.getLoggedInUser().getName());
 
-		books();
+		transactions();
 	}
 
 	@FXML

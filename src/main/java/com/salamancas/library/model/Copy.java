@@ -16,27 +16,30 @@ public class Copy {
 	private StringProperty title;
 	private StringProperty publisher;
 	private StringProperty status;
-	private String date_from;
-	private String date_to;
+	private String dateFrom;
+	private String dateTo;
 	private String isbn;
-	private String isbnOld;
 
 	public static ArrayList<Copy> fromResultSet(ResultSet rs) {
 		ArrayList<Copy> list = new ArrayList<>();
 		try {
 			while(rs.next()) {
 				list.add(new Copy(
-					rs.getInt(1),
-					rs.getInt(2),
-					rs.getInt(3),
-					rs.getString(4),
-					rs.getString(5),
-					rs.getString(6),
-					rs.getString(7),
-					rs.getString(8),
-					rs.getString(9),
-					rs.getString(10)
+						rs.getInt(1),
+						rs.getInt(2),
+						rs.getInt(3),
+						rs.getString(4),
+						rs.getString(5),
+						rs.getString(6),
+						rs.getString(7),
+						rs.getString(8),
+						rs.getString(9)
 				));
+			}
+			for(int i = 1; i < list.size(); i++) {
+				if(list.get(i).id == list.get(i - 1).id) {
+					list.remove(i-- - 1);
+				}
 			}
 		} catch(SQLException se) {
 			se.printStackTrace();
@@ -44,7 +47,7 @@ public class Copy {
 		return list;
 	}
 
-	public Copy(int id, int bookId, int publisherId, String serial, String title, String publisher, String isbn, String isbnOld, String date_from, String date_to) {
+	public Copy(int id, int bookId, int publisherId, String serial, String title, String publisher, String isbn, String dateFrom, String dateTo) {
 		this.id = id;
 		this.bookId = bookId;
 		this.publisherId = publisherId;
@@ -52,24 +55,22 @@ public class Copy {
 		this.title = new SimpleStringProperty(title);
 		this.publisher = new SimpleStringProperty(publisher);
 		this.isbn = isbn;
-		this.isbnOld = isbnOld;
-		this.date_from = date_from;
-		this.date_to = date_to;
+		this.dateFrom = dateFrom;
+		this.dateTo = dateTo;
 		this.status = new SimpleStringProperty();
 		statusParser();
 	}
 
 	private void statusParser(){
-
-		if(date_to == null && date_from == null){
-			status.setValue("na stanju");
+		if(dateFrom == null && dateTo == null || dateFrom != null && dateTo != null){
+			status.setValue("Na stanju");
 			return;
 		}
-		if(date_to == null){
-			status.setValue("nije na stanju");
+		if(dateTo == null){
+			status.setValue("Nije na stanju");
 			return;
 		}
-		status.setValue("na stanju");
+		status.setValue("Na stanju");
 	}
 
 	public int getId() {
@@ -132,6 +133,34 @@ public class Copy {
 		this.publisher.set(publisher);
 	}
 
+	public String getStatus() {
+		return status.get();
+	}
+
+	public StringProperty statusProperty() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status.set(status);
+	}
+
+	public String getDateFrom() {
+		return dateFrom;
+	}
+
+	public void setDateFrom(String dateFrom) {
+		this.dateFrom = dateFrom;
+	}
+
+	public String getDateTo() {
+		return dateTo;
+	}
+
+	public void setDateTo(String dateTo) {
+		this.dateTo = dateTo;
+	}
+
 	public String getIsbn() {
 		return isbn;
 	}
@@ -140,27 +169,9 @@ public class Copy {
 		this.isbn = isbn;
 	}
 
-	public String getIsbnOld() {
-		return isbnOld;
-	}
-
-	public void setIsbnOld(String isbnOld) {
-		this.isbnOld = isbnOld;
-	}
-
-	public String getStatus(){
-		return status.get();
-	}
-
-	public StringProperty statusProperty() {
-		return status;
-	}
-	public void setStatus(String status){this.status.set(status);}
-
-
 	@Override
 	public String toString() {
-		return title + ", " + publisher + " [" + serial + "][" + (isbn == null ? isbnOld : isbn) + "]";
+		return Integer.toString(id);
 	}
 
 }

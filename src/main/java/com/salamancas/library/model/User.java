@@ -22,6 +22,9 @@ public class User {
 	private int typeId;
 	private StringProperty name;
 	private StringProperty surname;
+	private String birthDate;
+	private String address;
+	private String town;
 	private StringProperty type;
 	private String year;
 	private StringProperty schoolClass;
@@ -38,8 +41,11 @@ public class User {
 						rs.getString(5),
 						rs.getString(6),
 						rs.getString(7),
-						rs.getString(8) == null ? rs.getString(9) : rs.getString(8),
-						rs.getString(10) == null ? rs.getString(11) : rs.getString(10)
+						rs.getString(8),
+						rs.getString(9),
+						rs.getString(10),
+						rs.getString(11) == null ? rs.getString(12) : rs.getString(11),
+						rs.getString(13) == null ? rs.getString(14) : rs.getString(13)
 				));
 			}
 		} catch(SQLException se) {
@@ -48,21 +54,33 @@ public class User {
 		return list;
 	}
 
-	public User(int id, int classId, int homeroomToId, int typeId, String name, String surname, String type, String year, String schoolClass) {
+	public User(int id, int classId, int homeroomToId, int typeId, String name, String surname, String birthDate, String address, String town, String type, String year, String schoolClass) {
 		this.id = id;
 		this.classId = classId;
 		this.homeroomToId = homeroomToId;
 		this.typeId = typeId;
 		this.name = new SimpleStringProperty(name);
 		this.surname = new SimpleStringProperty(surname);
+		this.birthDate = birthDate;
+		this.address = address;
 		this.type = new SimpleStringProperty(type);
 		this.year = year;
 		this.schoolClass = new SimpleStringProperty(schoolClass);
 		classParser();
 	}
 
+	public User() {
+		this.name = new SimpleStringProperty();
+		this.surname = new SimpleStringProperty();
+		this.birthDate = "";
+		this.address = "";
+		this.type = new SimpleStringProperty();
+		this.year = "";
+		this.schoolClass = new SimpleStringProperty();
+	}
+
 	private void classParser() {
-		if(year == null) {
+		if(year.equals("") || schoolClass == null || schoolClass.getValue().equals("")) {
 			return;
 		}
 		LocalDate currentDate = LocalDate.now();
@@ -134,6 +152,30 @@ public class User {
 		this.surname.set(surname);
 	}
 
+	public String getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getTown() {
+		return town;
+	}
+
+	public void setTown(String town) {
+		this.town = town;
+	}
+
 	public String getType() {
 		return type.get();
 	}
@@ -152,6 +194,7 @@ public class User {
 
 	public void setYear(String year) {
 		this.year = year;
+		classParser();
 	}
 
 	public String getSchoolClass() {
@@ -164,6 +207,7 @@ public class User {
 
 	public void setSchoolClass(String schoolClass) {
 		this.schoolClass.set(schoolClass);
+		classParser();
 	}
 
 	@Override

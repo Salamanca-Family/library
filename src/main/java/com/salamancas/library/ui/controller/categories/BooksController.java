@@ -79,7 +79,7 @@ public class BooksController implements Initializable {
 		copyPublisher.setCellValueFactory(data -> data.getValue().publisherProperty());
 
 		ResultSet rs = sqlUtils.exequteSelectQuery("""
-				select COPY.COPY_ID, B.BOOK_ID, P.PUBLISHER_ID, COPY_SERIAL_NUMBER, BOOK_TITLE, PUBLISHER_NAME, COPY_ISBN, COPY_ISBN_OLD, DATE_FROM, DATE_TO
+				select COPY.COPY_ID, B.BOOK_ID, P.PUBLISHER_ID, COPY_SERIAL_NUMBER, BOOK_TITLE, PUBLISHER_NAME, COPY_ISBN, DATE_FROM, DATE_TO
 				from COPY
 				inner join BOOK B on B.BOOK_ID = COPY.BOOK_ID
 				inner join PUBLISHER P on P.PUBLISHER_ID = COPY.PUBLISHER_ID
@@ -139,7 +139,7 @@ public class BooksController implements Initializable {
 		alert(Alert.AlertType.INFORMATION, "Detalji", "Naslov: " + copy.getTitle(),
 				"Izdavač: " + copy.getPublisher() +
 				"\nDelovodni broj: " + copy.getSerial() +
-				"\nISBN: " + (copy.getIsbn() == null ? copy.getIsbnOld() : copy.getIsbn()));
+				"\nISBN: " + copy.getIsbn());
 	}
 
 	private void alert(Alert.AlertType type, String title, String header, String content) {
