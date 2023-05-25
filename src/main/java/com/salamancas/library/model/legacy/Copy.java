@@ -1,4 +1,4 @@
-package com.salamancas.library.model;
+package com.salamancas.library.model.legacy;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

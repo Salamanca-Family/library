@@ -1,7 +1,7 @@
 package com.salamancas.library.ui.controller.categories;
 
-import com.salamancas.library.model.Book;
-import com.salamancas.library.model.Copy;
+import com.salamancas.library.model.legacy.Book;
+import com.salamancas.library.model.legacy.Copy;
 import com.salamancas.library.util.Options;
 import com.salamancas.library.util.sql.SQLUtils;
 import javafx.collections.FXCollections;

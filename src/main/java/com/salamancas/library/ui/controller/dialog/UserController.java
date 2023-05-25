@@ -1,19 +1,14 @@
 package com.salamancas.library.ui.controller.dialog;
 
-import com.salamancas.library.model.SchoolClass;
-import com.salamancas.library.model.Town;
-import com.salamancas.library.model.User;
+import com.salamancas.library.model.legacy.User;
 import com.salamancas.library.util.Options;
 import com.salamancas.library.util.sql.SQLUtils;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
-import java.net.URL;
 import java.time.LocalDate;
-import java.util.ResourceBundle;
 
 public class UserController {
 

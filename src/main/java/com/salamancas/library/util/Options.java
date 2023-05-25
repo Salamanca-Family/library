@@ -1,6 +1,6 @@
 package com.salamancas.library.util;
 
-import com.salamancas.library.model.LibrarianAccount;
+import com.salamancas.library.model.legacy.LibrarianAccount;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
