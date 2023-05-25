@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="768.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.salamancas.library.ui.controller.categories.UsersController">
+<AnchorPane prefHeight="768.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.salamancas.library.ui.controller.categories.UsersController">
    <children>
       <TableView fx:id="tblUsers" layoutX="15.0" layoutY="122.0" prefHeight="630.0" prefWidth="770.0">
         <columns>

@@ -1,7 +1,7 @@
 package com.salamancas.library.ui.controller.categories;
 
 import com.salamancas.library.model.legacy.User;
-import com.salamancas.library.model.persistence.view.Users;
+import com.salamancas.library.model.persistence.view.UserForUserCategory;
 import com.salamancas.library.ui.controller.dialog.UserController;
 import com.salamancas.library.util.Assets;
 import com.salamancas.library.util.Options;
@@ -15,7 +15,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,17 +27,17 @@ import java.util.ResourceBundle;
 public class UsersController implements Initializable {
 
 	@FXML
-	private TableColumn<Users, String> name;
+	private TableColumn<UserForUserCategory, String> name;
 	@FXML
-	private TableColumn<Users, String> surname;
+	private TableColumn<UserForUserCategory, String> surname;
 	@FXML
-	private TableColumn<Users, String> type;
+	private TableColumn<UserForUserCategory, String> type;
 	@FXML
-	private TableColumn<Users, String> schoolClass;
+	private TableColumn<UserForUserCategory, String> schoolClass;
 	@FXML
-	private TableColumn<Users, String> homeroomTeacher;
+	private TableColumn<UserForUserCategory, String> homeroomTeacher;
 	@FXML
-	private TableView<Users> tblUsers;
+	private TableView<UserForUserCategory> tblUsers;
 	@FXML
 	private TextField txfSearchBar;
 
@@ -63,7 +62,7 @@ public class UsersController implements Initializable {
 				this.setText(null);
 				this.setGraphic(null);
 				if(!empty) {
-					Users user = this.getTableRow().getItem();
+					UserForUserCategory user = this.getTableRow().getItem();
 					if(user == null) {
 						return;
 					}
@@ -73,17 +72,7 @@ public class UsersController implements Initializable {
 						return;
 					}
 					String userClass = user.getClassIndex();
-					LocalDate currentDate = LocalDate.now();
-					LocalDate start = LocalDate.of(Integer.parseInt(userYear), Month.SEPTEMBER, 1);
-					StringBuilder classIndex = new StringBuilder();
-					switch(Period.between(start, currentDate).getYears() + 1) {
-						case 1 -> classIndex.append("I-").append(userClass);
-						case 2 -> classIndex.append("II-").append(userClass);
-						case 3 -> classIndex.append("III-").append(userClass);
-						case 4 -> classIndex.append("IV-").append(userClass);
-						default -> classIndex.append(userYear).append("-").append(userClass);
-					}
-					this.setText(classIndex.toString());
+					this.setText(formatClassLabel(userYear, userClass));
 				}
 			}
 		});
@@ -94,7 +83,7 @@ public class UsersController implements Initializable {
 				this.setText(null);
 				this.setGraphic(null);
 				if(!empty) {
-					Users user = this.getTableRow().getItem();
+					UserForUserCategory user = this.getTableRow().getItem();
 					if(user == null) {
 						return;
 					}
@@ -104,28 +93,17 @@ public class UsersController implements Initializable {
 						return;
 					}
 					String userClass = user.getHomeroomTeacher();
-					LocalDate currentDate = LocalDate.now();
-					LocalDate start = LocalDate.of(Integer.parseInt(userYear), Month.SEPTEMBER, 1);
-					StringBuilder classIndex = new StringBuilder();
-					switch(Period.between(start, currentDate).getYears() + 1) {
-						case 1 -> classIndex.append("I-").append(userClass);
-						case 2 -> classIndex.append("II-").append(userClass);
-						case 3 -> classIndex.append("III-").append(userClass);
-						case 4 -> classIndex.append("IV-").append(userClass);
-						default -> classIndex.append(userYear).append("-").append(userClass);
-					}
-					this.setText(classIndex.toString());
+					this.setText(formatClassLabel(userYear, userClass));
 				}
 			}
 		});
 
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-		Session session = sessionFactory.openSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		ObservableList<Users> list = FXCollections.observableArrayList(session.createQuery("from Users", Users.class).list());
+		ObservableList<UserForUserCategory> list = FXCollections.observableArrayList(session.createQuery("from UserForUserCategory", UserForUserCategory.class).list());
 		session.close();
 
-		FilteredList<Users> filteredList = new FilteredList<>(list);
+		FilteredList<UserForUserCategory> filteredList = new FilteredList<>(list);
 		filteredList.setPredicate(data -> true);
 
 		txfSearchBar.textProperty().addListener((observableValue, oldValue, newValue) -> filteredList.setPredicate(data -> {
@@ -139,6 +117,20 @@ public class UsersController implements Initializable {
 		}));
 
 		tblUsers.setItems(filteredList);
+	}
+
+	private String formatClassLabel(String userYear, String userClass) {
+		LocalDate currentDate = LocalDate.now();
+		LocalDate start = LocalDate.of(Integer.parseInt(userYear), Month.SEPTEMBER, 1);
+		StringBuilder classIndex = new StringBuilder();
+		switch(Period.between(start, currentDate).getYears() + 1) {
+			case 1 -> classIndex.append("I-").append(userClass);
+			case 2 -> classIndex.append("II-").append(userClass);
+			case 3 -> classIndex.append("III-").append(userClass);
+			case 4 -> classIndex.append("IV-").append(userClass);
+			default -> classIndex.append(userYear).append("-").append(userClass);
+		}
+		return classIndex.toString();
 	}
 
 	@FXML

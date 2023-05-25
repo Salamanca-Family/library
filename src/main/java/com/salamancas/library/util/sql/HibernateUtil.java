@@ -7,7 +7,7 @@ public class HibernateUtil {
 
 	private static SessionFactory sessionFactory = null;
 
-	static {
+	public static void init() {
 		try {
 			sessionFactory = new Configuration().configure().buildSessionFactory();
 		} catch (Exception e) {
@@ -16,6 +16,10 @@ public class HibernateUtil {
 	}
 
 	public static SessionFactory getSessionFactory() {
+		if(sessionFactory == null) {
+			System.out.println("Session factory not initialized");
+			return null;
+		}
 		return sessionFactory;
 	}
 
