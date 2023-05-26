@@ -1,37 +1,41 @@
 package com.salamancas.library.ui.controller.categories;
 
-import com.salamancas.library.model.Book;
-import com.salamancas.library.model.Copy;
+import com.salamancas.library.model.view.BookForBooksCategory;
+import com.salamancas.library.model.view.CopyForBooksCategory;
 import com.salamancas.library.util.Options;
+import com.salamancas.library.util.sql.HibernateUtil;
 import com.salamancas.library.util.sql.SQLUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import org.hibernate.Session;
 
 import java.net.URL;
-import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class BooksController implements Initializable {
 
 	@FXML
-	private TableView<Book> tblBooks;
+	private TableView<BookForBooksCategory> tblBooks;
 	@FXML
-	private TableColumn<Book, String> bookTitle;
+	private TableColumn<BookForBooksCategory, String> bookTitle;
 	@FXML
-	private TableColumn<Book, String> bookAuthors;
+	private TableColumn<BookForBooksCategory, String> bookAuthors;
 
 	@FXML
-	private TableView<Copy> tblCopies;
+	private TableView<CopyForBooksCategory> tblCopies;
 	@FXML
-	private TableColumn<Copy, String> copyPublisher;
+	private TableColumn<CopyForBooksCategory, String> copyPublisher;
 	@FXML
-	private TableColumn<Copy, String> copySerial;
+	private TableColumn<CopyForBooksCategory, String> copySerial;
 	@FXML
-	private TableColumn<Copy, String> copyTitle;
+	private TableColumn<CopyForBooksCategory, String> copyTitle;
 
 	@FXML
 	private TextField txfSearchBar;
@@ -49,25 +53,30 @@ public class BooksController implements Initializable {
 	}
 
 	private void initBooks() {
-		bookTitle.setCellValueFactory(data -> data.getValue().titleProperty());
-		bookAuthors.setCellValueFactory(data -> data.getValue().authorsProperty());
+		bookTitle.setCellValueFactory(data -> data.getValue().bookTitleProperty());
+		bookAuthors.setCellValueFactory(data -> data.getValue().authorNameProperty());
 
-		ResultSet rs = sqlUtils.exequteSelectQuery("""
-				select BOOK.BOOK_ID, A.AUTHOR_ID, BOOK_TITLE, AUTHOR_NAME
-				from BOOK
-				inner join AUTHOR_OF_BOOK AOB on BOOK.BOOK_ID = AOB.BOOK_ID
-				inner join AUTHOR A on A.AUTHOR_ID = AOB.AUTHOR_ID;""");
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		ObservableList<BookForBooksCategory> list = FXCollections.observableArrayList(session.createQuery("from BookForBooksCategory", BookForBooksCategory.class).list());
+		session.close();
 
-		ObservableList<Book> list = FXCollections.observableArrayList(Book.fromResultSet(rs));
-		FilteredList<Book> filteredList = new FilteredList<>(list);
+		for(int i = 1; i < list.size(); i++) {
+			if(list.get(i - 1).getBookId().equals(list.get(i).getBookId())) {
+				list.get(i).setAuthorName(list.get(i).getAuthorName() + ", " + list.get(i - 1).getAuthorName());
+				list.remove(i-- - 1);
+			}
+		}
+
+		FilteredList<BookForBooksCategory> filteredList = new FilteredList<>(list);
 		filteredList.setPredicate(data -> true);
 
 		txfSearchBar.textProperty().addListener((observableValue, oldValue, newValue) -> filteredList.setPredicate(data -> {
 			if(newValue.equals("")) {
 				return true;
 			}
-			return data.getTitle().toLowerCase().contains(newValue.toLowerCase())
-					|| data.getAuthors().toLowerCase().contains(newValue.toLowerCase());
+			return data.getBookTitle().toLowerCase().contains(newValue.toLowerCase())
+					|| data.getAuthorName().toLowerCase().contains(newValue.toLowerCase());
 		}));
 
 		tblBooks.setItems(filteredList);
@@ -78,23 +87,21 @@ public class BooksController implements Initializable {
 		copyTitle.setCellValueFactory(data -> data.getValue().titleProperty());
 		copyPublisher.setCellValueFactory(data -> data.getValue().publisherProperty());
 
-		ResultSet rs = sqlUtils.exequteSelectQuery("""
-				select COPY.COPY_ID, B.BOOK_ID, P.PUBLISHER_ID, COPY_SERIAL_NUMBER, BOOK_TITLE, PUBLISHER_NAME, COPY_ISBN, DATE_FROM, DATE_TO
-				from COPY
-				inner join BOOK B on B.BOOK_ID = COPY.BOOK_ID
-				inner join PUBLISHER P on P.PUBLISHER_ID = COPY.PUBLISHER_ID
-				left join BORROW on BORROW.COPY_ID = COPY.COPY_ID;""");
-		ObservableList<Copy> list = FXCollections.observableArrayList(Copy.fromResultSet(rs));
-		FilteredList<Copy> filteredList = new FilteredList<>(list);
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		ObservableList<CopyForBooksCategory> list = FXCollections.observableArrayList(session.createQuery("from CopyForBooksCategory", CopyForBooksCategory.class).list());
+		session.close();
+
+		FilteredList<CopyForBooksCategory> filteredList = new FilteredList<>(list);
 		filteredList.setPredicate(data -> true);
 
 		txfSearchBar.textProperty().addListener((observableValue, oldValue, newValue) -> filteredList.setPredicate(data -> {
 			if(newValue.equals("")) {
 				return true;
 			}
-			return data.getTitle().toLowerCase().contains(newValue.toLowerCase())
-					|| data.getPublisher().toLowerCase().contains(newValue.toLowerCase())
-					|| data.getSerial().toLowerCase().contains(newValue.toLowerCase());
+			return data.getBookTitle().toLowerCase().contains(newValue.toLowerCase())
+					|| data.getPublisherName().toLowerCase().contains(newValue.toLowerCase())
+					|| data.getCopySerialNumber().toLowerCase().contains(newValue.toLowerCase());
 		}));
 
 		tblCopies.setItems(filteredList);
@@ -131,15 +138,15 @@ public class BooksController implements Initializable {
 
 	@FXML
 	private void copyDetails() {
-		Copy copy = tblCopies.getSelectionModel().getSelectedItem();
+		CopyForBooksCategory copy = tblCopies.getSelectionModel().getSelectedItem();
 		if(copy == null) {
 			alert(Alert.AlertType.WARNING, "Warning", "Niste izabrali primerak", "Molimo Vas izaberite primerak");
 			return;
 		}
-		alert(Alert.AlertType.INFORMATION, "Detalji", "Naslov: " + copy.getTitle(),
-				"Izdavač: " + copy.getPublisher() +
-				"\nDelovodni broj: " + copy.getSerial() +
-				"\nISBN: " + copy.getIsbn());
+		alert(Alert.AlertType.INFORMATION, "Detalji", "Naslov: " + copy.getBookTitle(),
+				"Izdavač: " + copy.getPublisherName() +
+				"\nDelovodni broj: " + copy.getCopySerialNumber() +
+				"\nISBN: " + copy.getCopyIsbn());
 	}
 
 	private void alert(Alert.AlertType type, String title, String header, String content) {
