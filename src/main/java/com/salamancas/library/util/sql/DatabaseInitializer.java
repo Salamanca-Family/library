@@ -21,8 +21,10 @@ public class DatabaseInitializer {
 			drop table if exists TYPE_OF_USER;
 			drop table if exists USER;
 			drop table if exists YEAR;
-			drop view if exists USER_FOR_USER_CATEGORY;
-			drop view if exists COPY_FOR_TRANSACTION_CATEGORY;
+			drop view if exists BOOK_FOR_BOOKS_CATEGORY;
+			drop view if exists COPY_FOR_BOOKS_CATEGORY;
+			drop view if exists USER_FOR_USERS_CATEGORY;
+			drop view if exists COPY_FOR_TRANSACTIONS_CATEGORY;
 			   
 			--==============================================================
 			-- Table: USER
@@ -212,10 +214,31 @@ public class DatabaseInitializer {
 			      references USER (USER_ID)
 			);
 			--==============================================================
+			-- View: ACCOUNT_FOR_LOG_IN
+			--==============================================================
+			   
+			--==============================================================
+			-- View: BOOK_FOR_BOOKS_CATEGORY
+			--==============================================================
+			create view BOOK_FOR_BOOKS_CATEGORY as
+			select BOOK.BOOK_ID, BOOK_TITLE, AUTHOR_NAME
+			from BOOK
+			inner join AUTHOR_OF_BOOK AOB on BOOK.BOOK_ID = AOB.BOOK_ID
+			inner join AUTHOR A on A.AUTHOR_ID = AOB.AUTHOR_ID
+			order by BOOK.BOOK_ID;
+			--==============================================================
+			-- View: BOOK_FOR_BOOKS_CATEGORY
+			--==============================================================
+			create view COPY_FOR_BOOKS_CATEGORY as
+			select COPY.COPY_ID, COPY_SERIAL_NUMBER, COPY_ISBN, BOOK_TITLE, PUBLISHER_NAME
+			from COPY
+			inner join BOOK B on B.BOOK_ID = COPY.BOOK_ID
+			inner join PUBLISHER P on P.PUBLISHER_ID = COPY.PUBLISHER_ID;
+			--==============================================================
 			-- View: USER_FOR_USER_CATEGORY
 			--==============================================================
-			create view USER_FOR_USER_CATEGORY as
-			select USER.USER_ID, USER.USER_NAME, USER.USER_SURNAME, T.TYPE_NAME, Y1.YEAR_NAME as 'STUDENT_YEAR', Y2.YEAR_NAME as 'HOMEROOM_YEAR', C1.CLASS_INDEX as 'CLASS_INDEX', C2.CLASS_INDEX as 'HOMEROOM_TEACHER'
+			create view USER_FOR_USERS_CATEGORY as
+			select distinct USER.USER_ID, USER.USER_NAME, USER.USER_SURNAME, T.TYPE_NAME, Y1.YEAR_NAME as 'STUDENT_YEAR', Y2.YEAR_NAME as 'HOMEROOM_YEAR', C1.CLASS_INDEX as 'CLASS_INDEX', C2.CLASS_INDEX as 'HOMEROOM_TEACHER'
 			from USER
 			left join STUDENT_IN_CLASS SIC on USER.USER_ID = SIC.USER_ID
 			left join CLASS C1 on C1.CLASS_ID = SIC.CLASS_ID
@@ -229,13 +252,12 @@ public class DatabaseInitializer {
 			--==============================================================
 			-- View: COPY_FOR_TRANSACTION
 			--==============================================================
-			create view COPY_FOR_TRANSACTION_CATEGORY as
+			create view COPY_FOR_TRANSACTIONS_CATEGORY as
 			select COPY.COPY_ID, COPY_SERIAL_NUMBER, BOOK_TITLE, PUBLISHER_NAME, DATE_FROM, DATE_TO
 			from COPY
 			inner join BOOK B on B.BOOK_ID = COPY.BOOK_ID
 			inner join PUBLISHER P on P.PUBLISHER_ID = COPY.PUBLISHER_ID
-			left join BORROW on BORROW.COPY_ID = COPY.COPY_ID
-			order by COPY.COPY_ID, DATE_FROM desc, DATE_TO desc;
+			left join BORROW on BORROW.COPY_ID = COPY.COPY_ID;
 			   
 			-- Pre-generated
 			-- Type
@@ -265,17 +287,18 @@ public class DatabaseInitializer {
 			INSERT INTO TOWN (TOWN_ID, TOWN_NAME) VALUES (19, 'Parage');
 			INSERT INTO TOWN (TOWN_ID, TOWN_NAME) VALUES (20, 'Pivnice');
 			-- User
+			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADDRESS) VALUES ('Administrator', '', '', '');
 			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADDRESS) VALUES ('Luka', 'Nedeljkov', '2005-02-04', 'Djordja Zličića 23');
 			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADDRESS) VALUES ('Relja', 'Djordjevic', '2004-04-25', 'Drvarska 1');
 			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADDRESS) VALUES ('Stefan', 'Vasiljevic', '2004-03-19', 'Dimitrija Tucovica 3');
 			INSERT INTO USER (USER_NAME, USER_SURNAME, USER_BIRTH_DATE, USER_ADDRESS) VALUES ('Svetlana', 'Erceg', '1975-01-01', 'Novosadska 1');
 			-- Type of user
-			INSERT INTO TYPE_OF_USER (TYPE_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (1, 1, '2023-05-18', null);
-			INSERT INTO TYPE_OF_USER (TYPE_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (1, 2, '2023-05-18', null);
-			INSERT INTO TYPE_OF_USER (TYPE_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (1, 3, '2023-05-18', null);
-			INSERT INTO TYPE_OF_USER (TYPE_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (2, 4, '2023-05-18', null);
+			INSERT INTO TYPE_OF_USER (TYPE_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (2, 1, '2023-05-18', null);
+			INSERT INTO TYPE_OF_USER (TYPE_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (2, 2, '2023-05-18', null);
+			INSERT INTO TYPE_OF_USER (TYPE_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (2, 3, '2023-05-18', null);
+			INSERT INTO TYPE_OF_USER (TYPE_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (3, 4, '2023-05-18', null);
 			-- Account
-			INSERT INTO ACCOUNT (ACCOUNT_ID, USER_ID, ACCOUNT_USERNAME, ACCOUNT_PASSWORD) VALUES (1, null, 'admin', 'admin');
+			INSERT INTO ACCOUNT (ACCOUNT_ID, USER_ID, ACCOUNT_USERNAME, ACCOUNT_PASSWORD) VALUES (1, 1, 'admin', 'admin');
 			-- Author
 			INSERT INTO AUTHOR (AUTHOR_NAME) VALUES ('I. Andric');
 			INSERT INTO AUTHOR (AUTHOR_NAME) VALUES ('J. J. Zmaj');
@@ -288,10 +311,11 @@ public class DatabaseInitializer {
 			INSERT INTO BOOK (BOOK_TITLE) VALUES ('Orlovi rano lete');
 			INSERT INTO BOOK (BOOK_TITLE) VALUES ('Zbirka matematike za 4. razred');
 			-- Author of Book
-			INSERT INTO AUTHOR_OF_BOOK (AUTHOR_ID, BOOK_ID) VALUES (1, 1);
-			INSERT INTO AUTHOR_OF_BOOK (AUTHOR_ID, BOOK_ID) VALUES (1, 2);
+			INSERT INTO AUTHOR_OF_BOOK (AUTHOR_ID, BOOK_ID) VALUES (2, 1);
 			INSERT INTO AUTHOR_OF_BOOK (AUTHOR_ID, BOOK_ID) VALUES (2, 2);
-			INSERT INTO AUTHOR_OF_BOOK (AUTHOR_ID, BOOK_ID) VALUES (3, 3);
+			INSERT INTO AUTHOR_OF_BOOK (AUTHOR_ID, BOOK_ID) VALUES (3, 1);
+			INSERT INTO AUTHOR_OF_BOOK (AUTHOR_ID, BOOK_ID) VALUES (3, 2);
+			INSERT INTO AUTHOR_OF_BOOK (AUTHOR_ID, BOOK_ID) VALUES (4, 3);
 			-- Copy
 			INSERT INTO COPY (BOOK_ID, PUBLISHER_ID, COPY_SERIAL_NUMBER, COPY_ISBN) VALUES (1, 1, '1001', '974-1000000001');
 			INSERT INTO COPY (BOOK_ID, PUBLISHER_ID, COPY_SERIAL_NUMBER, COPY_ISBN) VALUES (1, 2, '1002', '974-1000000002');
@@ -304,16 +328,16 @@ public class DatabaseInitializer {
 			-- Class
 			INSERT INTO CLASS (YEAR_ID, CLASS_INDEX) VALUES (1, '1');
 			-- Student in Class
-			INSERT INTO STUDENT_IN_CLASS (CLASS_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (1, 1, '2023-05-21', null);
 			INSERT INTO STUDENT_IN_CLASS (CLASS_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (1, 2, '2023-05-21', null);
 			INSERT INTO STUDENT_IN_CLASS (CLASS_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (1, 3, '2023-05-21', null);
+			INSERT INTO STUDENT_IN_CLASS (CLASS_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (1, 4, '2023-05-21', null);
 			-- Homeroom Teacher
-			INSERT INTO HOMEROOM_TEACHER (CLASS_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (1, 4, '2023-05-21', null);
+			INSERT INTO HOMEROOM_TEACHER (CLASS_ID, USER_ID, DATE_FROM, DATE_TO) VALUES (1, 5, '2023-05-21', null);
 			-- Borrow
-			INSERT INTO BORROW (COPY_ID, USER_ID, DATE_FROM, DATE_TO, ACCOUNT_ID) VALUES (1, 1, '2023-01-01', '2023-01-02', 1);
-			INSERT INTO BORROW (COPY_ID, USER_ID, DATE_FROM, DATE_TO, ACCOUNT_ID) VALUES (1, 2, '2023-01-02', '2023-01-03', 1);
-			INSERT INTO BORROW (COPY_ID, USER_ID, DATE_FROM, DATE_TO, ACCOUNT_ID) VALUES (1, 3, '2023-01-03', null, 1);
-			INSERT INTO BORROW (COPY_ID, USER_ID, DATE_FROM, DATE_TO, ACCOUNT_ID) VALUES (2, 4, '2023-01-01', null, 1);""";
+			INSERT INTO BORROW (COPY_ID, USER_ID, DATE_FROM, DATE_TO, ACCOUNT_ID) VALUES (1, 2, '2023-01-01', '2023-01-02', 1);
+			INSERT INTO BORROW (COPY_ID, USER_ID, DATE_FROM, DATE_TO, ACCOUNT_ID) VALUES (1, 3, '2023-01-02', '2023-01-03', 1);
+			INSERT INTO BORROW (COPY_ID, USER_ID, DATE_FROM, DATE_TO, ACCOUNT_ID) VALUES (1, 4, '2023-01-03', null, 1);
+			INSERT INTO BORROW (COPY_ID, USER_ID, DATE_FROM, DATE_TO, ACCOUNT_ID) VALUES (2, 5, '2023-01-01', null, 1);""";
 
 	public static void initializeDatabase() {
 		File file = new File("data.db");
