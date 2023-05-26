@@ -11,8 +11,8 @@ import java.io.ObjectOutput;
 import java.util.Objects;
 
 @Entity
-@Table(name = "USER_FOR_USER_CATEGORY", schema = "main")
-public class UserForUserCategory implements Externalizable {
+@Table(name = "USER_FOR_USERS_CATEGORY", schema = "main")
+public class UserForUsersCategory implements Externalizable {
 
 	private Integer userId;
 	private StringProperty userName;
@@ -23,7 +23,7 @@ public class UserForUserCategory implements Externalizable {
 	private String studentYear;
 	private String homeroomYear;
 
-	public UserForUserCategory() {
+	public UserForUsersCategory() {
 		userName = new SimpleStringProperty(this, "userName");
 		userSurname = new SimpleStringProperty(this, "userSurname");
 		typeName = new SimpleStringProperty(this, "typeName");
@@ -42,7 +42,7 @@ public class UserForUserCategory implements Externalizable {
 		this.userId = userId;
 	}
 
-	@Basic
+	@Id
 	@Column(name = "USER_NAME")
 	public String getUserName() {
 		return userName.get();
@@ -56,7 +56,7 @@ public class UserForUserCategory implements Externalizable {
 		return userName;
 	}
 
-	@Basic
+	@Id
 	@Column(name = "USER_SURNAME")
 	public String getUserSurname() {
 		return userSurname.get();
@@ -70,7 +70,7 @@ public class UserForUserCategory implements Externalizable {
 		return userSurname;
 	}
 
-	@Basic
+	@Id
 	@Column(name = "TYPE_NAME")
 	public String getTypeName() {
 		return typeName.get();
@@ -84,7 +84,7 @@ public class UserForUserCategory implements Externalizable {
 		return typeName;
 	}
 
-	@Basic
+	@Id
 	@Column(name = "CLASS_INDEX")
 	public String getClassIndex() {
 		return classIndex.get();
@@ -98,8 +98,8 @@ public class UserForUserCategory implements Externalizable {
 		return classIndex;
 	}
 
-	@Basic
-	@Column(name = "HOMEROOM_TEACHER", nullable = true, length = -1)
+	@Id
+	@Column(name = "HOMEROOM_TEACHER")
 	public String getHomeroomTeacher() {
 		return homeroomTeacher.get();
 	}
@@ -112,7 +112,7 @@ public class UserForUserCategory implements Externalizable {
 		return homeroomTeacher;
 	}
 
-	@Basic
+	@Id
 	@Column(name = "STUDENT_YEAR")
 	public String getStudentYear() {
 		return studentYear;
@@ -122,7 +122,7 @@ public class UserForUserCategory implements Externalizable {
 		this.studentYear = studentYear;
 	}
 
-	@Basic
+	@Id
 	@Column(name = "HOMEROOM_YEAR")
 	public String getHomeroomYear() {
 		return homeroomYear;
@@ -136,7 +136,7 @@ public class UserForUserCategory implements Externalizable {
 	public boolean equals(Object o) {
 		if(this == o) return true;
 		if(o == null || getClass() != o.getClass()) return false;
-		UserForUserCategory temp = (UserForUserCategory) o;
+		UserForUsersCategory temp = (UserForUsersCategory) o;
 		return Objects.equals(userId, temp.userId) && Objects.equals(userName, temp.userName) && Objects.equals(userSurname, temp.userSurname) && Objects.equals(classIndex, temp.classIndex) && Objects.equals(typeName, temp.typeName);
 	}
 

@@ -1,8 +1,12 @@
 package com.salamancas.library.model.persistence.view;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import org.hibernate.annotations.Immutable;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -11,8 +15,9 @@ import java.io.ObjectOutput;
 import java.util.Objects;
 
 @Entity
-@Table(name = "COPY_FOR_TRANSACTION_CATEGORY", schema = "main")
-public class CopyForTransactionCategory implements Externalizable {
+@Immutable
+@Table(name = "COPY_FOR_TRANSACTIONS_CATEGORY", schema = "main")
+public class CopyForTransactionsCategory implements Externalizable {
 
 	private Integer copyId;
 	private StringProperty copySerialNumber;
@@ -21,13 +26,12 @@ public class CopyForTransactionCategory implements Externalizable {
 	private String dateFrom;
 	private String dateTo;
 
-	public CopyForTransactionCategory() {
+	public CopyForTransactionsCategory() {
 		copySerialNumber = new SimpleStringProperty(this, "copySerialNumber");
 		bookTitle = new SimpleStringProperty(this, "bookTitle");
 		publisherName = new SimpleStringProperty(this, "publisherName");
 	}
 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	@Column(name = "COPY_ID")
 	public Integer getCopyId() {
@@ -38,7 +42,7 @@ public class CopyForTransactionCategory implements Externalizable {
 		this.copyId = copyId;
 	}
 
-	@Basic
+	@Id
 	@Column(name = "COPY_SERIAL_NUMBER")
 	public String getCopySerialNumber() {
 		return copySerialNumber.get();
@@ -52,7 +56,7 @@ public class CopyForTransactionCategory implements Externalizable {
 		return copySerialNumber;
 	}
 
-	@Basic
+	@Id
 	@Column(name = "BOOK_TITLE")
 	public String getBookTitle() {
 		return bookTitle.get();
@@ -66,7 +70,7 @@ public class CopyForTransactionCategory implements Externalizable {
 		return bookTitle;
 	}
 
-	@Basic
+	@Id
 	@Column(name = "PUBLISHER_NAME")
 	public String getPublisherName() {
 		return publisherName.get();
@@ -80,7 +84,7 @@ public class CopyForTransactionCategory implements Externalizable {
 		return publisherName;
 	}
 
-	@Basic
+	@Id
 	@Column(name = "DATE_FROM")
 	public String getDateFrom() {
 		return dateFrom;
@@ -90,7 +94,7 @@ public class CopyForTransactionCategory implements Externalizable {
 		this.dateFrom = dateFrom;
 	}
 
-	@Basic
+	@Id
 	@Column(name = "DATE_TO")
 	public String getDateTo() {
 		return dateTo;
@@ -104,7 +108,7 @@ public class CopyForTransactionCategory implements Externalizable {
 	public boolean equals(Object o) {
 		if(this == o) return true;
 		if(o == null || getClass() != o.getClass()) return false;
-		CopyForTransactionCategory that = (CopyForTransactionCategory) o;
+		CopyForTransactionsCategory that = (CopyForTransactionsCategory) o;
 		return Objects.equals(copyId, that.copyId) && Objects.equals(copySerialNumber.get(), that.copySerialNumber.get()) && Objects.equals(bookTitle.get(), that.bookTitle.get()) && Objects.equals(publisherName.get(), that.publisherName.get()) && Objects.equals(dateFrom, that.dateFrom) && Objects.equals(dateTo, that.dateTo);
 	}
 

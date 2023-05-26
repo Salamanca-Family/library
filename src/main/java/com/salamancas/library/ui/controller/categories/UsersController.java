@@ -1,7 +1,7 @@
 package com.salamancas.library.ui.controller.categories;
 
 import com.salamancas.library.model.legacy.User;
-import com.salamancas.library.model.persistence.view.UserForUserCategory;
+import com.salamancas.library.model.persistence.view.UserForUsersCategory;
 import com.salamancas.library.ui.controller.dialog.UserController;
 import com.salamancas.library.util.Assets;
 import com.salamancas.library.util.Options;
@@ -27,17 +27,17 @@ import java.util.ResourceBundle;
 public class UsersController implements Initializable {
 
 	@FXML
-	private TableColumn<UserForUserCategory, String> name;
+	private TableColumn<UserForUsersCategory, String> name;
 	@FXML
-	private TableColumn<UserForUserCategory, String> surname;
+	private TableColumn<UserForUsersCategory, String> surname;
 	@FXML
-	private TableColumn<UserForUserCategory, String> type;
+	private TableColumn<UserForUsersCategory, String> type;
 	@FXML
-	private TableColumn<UserForUserCategory, String> schoolClass;
+	private TableColumn<UserForUsersCategory, String> schoolClass;
 	@FXML
-	private TableColumn<UserForUserCategory, String> homeroomTeacher;
+	private TableColumn<UserForUsersCategory, String> homeroomTeacher;
 	@FXML
-	private TableView<UserForUserCategory> tblUsers;
+	private TableView<UserForUsersCategory> tblUsers;
 	@FXML
 	private TextField txfSearchBar;
 
@@ -62,7 +62,7 @@ public class UsersController implements Initializable {
 				this.setText(null);
 				this.setGraphic(null);
 				if(!empty) {
-					UserForUserCategory user = this.getTableRow().getItem();
+					UserForUsersCategory user = this.getTableRow().getItem();
 					if(user == null) {
 						return;
 					}
@@ -83,7 +83,7 @@ public class UsersController implements Initializable {
 				this.setText(null);
 				this.setGraphic(null);
 				if(!empty) {
-					UserForUserCategory user = this.getTableRow().getItem();
+					UserForUsersCategory user = this.getTableRow().getItem();
 					if(user == null) {
 						return;
 					}
@@ -100,10 +100,10 @@ public class UsersController implements Initializable {
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		ObservableList<UserForUserCategory> list = FXCollections.observableArrayList(session.createQuery("from UserForUserCategory", UserForUserCategory.class).list());
+		ObservableList<UserForUsersCategory> list = FXCollections.observableArrayList(session.createQuery("from UserForUsersCategory", UserForUsersCategory.class).list());
 		session.close();
 
-		FilteredList<UserForUserCategory> filteredList = new FilteredList<>(list);
+		FilteredList<UserForUsersCategory> filteredList = new FilteredList<>(list);
 		filteredList.setPredicate(data -> true);
 
 		txfSearchBar.textProperty().addListener((observableValue, oldValue, newValue) -> filteredList.setPredicate(data -> {

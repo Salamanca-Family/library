@@ -12,7 +12,9 @@
     <mapping class="com.salamancas.library.model.persistence.table.Copy"/>
     <mapping class="com.salamancas.library.model.persistence.table.Publisher"/>
     <mapping class="com.salamancas.library.model.persistence.table.User"/>
-    <mapping class="com.salamancas.library.model.persistence.view.UserForUserCategory"/>
-    <mapping class="com.salamancas.library.model.persistence.view.CopyForTransactionCategory"/>
+    <mapping class="com.salamancas.library.model.persistence.view.BookForBooksCategory"/>
+    <mapping class="com.salamancas.library.model.persistence.view.CopyForBooksCategory"/>
+    <mapping class="com.salamancas.library.model.persistence.view.CopyForTransactionsCategory"/>
+    <mapping class="com.salamancas.library.model.persistence.view.UserForUsersCategory"/>
   </session-factory>
 </hibernate-configuration>

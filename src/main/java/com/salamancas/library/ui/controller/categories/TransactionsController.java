@@ -1,7 +1,7 @@
 package com.salamancas.library.ui.controller.categories;
 
 import com.salamancas.library.model.persistence.table.User;
-import com.salamancas.library.model.persistence.view.CopyForTransactionCategory;
+import com.salamancas.library.model.persistence.view.CopyForTransactionsCategory;
 import com.salamancas.library.util.Options;
 import com.salamancas.library.util.sql.HibernateUtil;
 import com.salamancas.library.util.sql.SQLUtils;
@@ -19,15 +19,15 @@ import java.util.ResourceBundle;
 public class TransactionsController implements Initializable {
 
 	@FXML
-	private TableView<CopyForTransactionCategory> tblCopies;
+	private TableView<CopyForTransactionsCategory> tblCopies;
 	@FXML
-	private TableColumn<CopyForTransactionCategory, String> copySerial;
+	private TableColumn<CopyForTransactionsCategory, String> copySerial;
 	@FXML
-	private TableColumn<CopyForTransactionCategory, String> copyTitle;
+	private TableColumn<CopyForTransactionsCategory, String> copyTitle;
 	@FXML
-	private TableColumn<CopyForTransactionCategory, String> copyStatus;
+	private TableColumn<CopyForTransactionsCategory, String> copyStatus;
 	@FXML
-	private TableColumn<CopyForTransactionCategory, String> copyPublisher;
+	private TableColumn<CopyForTransactionsCategory, String> copyPublisher;
 	@FXML
 	private ListView<User> lstUsers;
 	@FXML
@@ -59,7 +59,7 @@ public class TransactionsController implements Initializable {
 				this.setText(null);
 				this.setGraphic(null);
 				if(!empty) {
-					CopyForTransactionCategory copy = this.getTableRow().getItem();
+					CopyForTransactionsCategory copy = this.getTableRow().getItem();
 					if(copy == null) {
 						return;
 					}
@@ -74,7 +74,7 @@ public class TransactionsController implements Initializable {
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		ObservableList<CopyForTransactionCategory> list = FXCollections.observableArrayList(session.createQuery("from CopyForTransactionCategory", CopyForTransactionCategory.class).list());
+		ObservableList<CopyForTransactionsCategory> list = FXCollections.observableArrayList(session.createQuery("from CopyForTransactionsCategory", CopyForTransactionsCategory.class).list());
 		session.close();
 		
 		for(int i = 1; i < list.size(); i++) {
@@ -83,7 +83,7 @@ public class TransactionsController implements Initializable {
 			}
 		}
 
-		FilteredList<CopyForTransactionCategory> filteredList = new FilteredList<>(list);
+		FilteredList<CopyForTransactionsCategory> filteredList = new FilteredList<>(list);
 		filteredList.setPredicate(data -> true);
 
 		txfCopiesSearchBar.textProperty().addListener((observableValue, oldValue, newValue) -> filteredList.setPredicate(data -> {
