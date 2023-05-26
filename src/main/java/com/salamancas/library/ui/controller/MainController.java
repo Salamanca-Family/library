@@ -1,5 +1,6 @@
 package com.salamancas.library.ui.controller;
 
+import com.salamancas.library.model.table.Account;
 import com.salamancas.library.util.Assets;
 import com.salamancas.library.util.Options;
 import javafx.collections.ObservableList;
@@ -46,6 +47,7 @@ public class MainController implements Initializable {
 	private AnchorPane container;
 
 	Options options;
+	private Account loggedIn;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -55,7 +57,6 @@ public class MainController implements Initializable {
 		usersIcon.setImage(Assets.usersIcon);
 		transactionIcon.setImage(Assets.transactionIcon);
 		settingsIcon.setImage(Assets.settingsIcon);
-		username.setText(options.getLoggedInUser().getName());
 
 		books();
 	}
@@ -67,8 +68,7 @@ public class MainController implements Initializable {
 
 	@FXML
 	private void signOut() {
-		options.setLoggedInUser(null);
-		options.switchStage();
+		options.logInStage();
 	}
 
 	@FXML
@@ -109,6 +109,11 @@ public class MainController implements Initializable {
 		usersButton.getStyleClass().remove("selected");
 		transactionsButton.getStyleClass().remove("selected");
 		settingsButton.getStyleClass().remove("selected");
+	}
+
+	public void setLoggedIn(Account account) {
+		loggedIn = account;
+		username.setText(loggedIn.getUser().getUserName() + " " + loggedIn.getUser().getUserSurname());
 	}
 
 }

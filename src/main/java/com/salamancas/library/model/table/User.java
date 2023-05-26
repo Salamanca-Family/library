@@ -1,9 +1,8 @@
-package com.salamancas.library.model.persistence.table;
+package com.salamancas.library.model.table;
 
 import jakarta.persistence.*;
 
 import java.util.Collection;
-import java.util.Objects;
 
 @Entity
 public class User {
@@ -13,6 +12,7 @@ public class User {
 	private String userSurname;
 	private String userBirthDate;
 	private String userAddress;
+	private Collection<Account> accounts;
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
@@ -63,6 +63,15 @@ public class User {
 
 	public void setUserAddress(String userAddress) {
 		this.userAddress = userAddress;
+	}
+
+	@OneToMany(mappedBy = "user")
+	public Collection<Account> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(Collection<Account> accounts) {
+		this.accounts = accounts;
 	}
 
 	@Override

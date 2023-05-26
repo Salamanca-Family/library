@@ -1,4 +1,4 @@
-package com.salamancas.library.model.persistence.table;
+package com.salamancas.library.model.table;
 
 import jakarta.persistence.*;
 

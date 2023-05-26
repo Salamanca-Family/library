@@ -1,7 +1,8 @@
 package com.salamancas.library.ui.controller;
 
-import com.salamancas.library.model.legacy.LibrarianAccount;
+import com.salamancas.library.model.table.Account;
 import com.salamancas.library.util.Options;
+import com.salamancas.library.util.sql.HibernateUtil;
 import com.salamancas.library.util.sql.SQLUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +13,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import org.hibernate.Session;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -42,7 +44,8 @@ public class LogInController implements Initializable {
 				authenticate();
 			}
 			if(keyComb.match(event)) {
-				logIn(new LibrarianAccount(1, 1, "Administrator", "admin", "admin"));
+				Session session = HibernateUtil.getSessionFactory().openSession();
+				logIn(session.createQuery("from Account where accountId = 1", Account.class).getSingleResult());
 			}
 		});
 	}
@@ -59,25 +62,24 @@ public class LogInController implements Initializable {
 
 	@FXML
 	void authenticate() {
-		String sql = "select account.account_id, account.user_id, user_name, user_surname, account_username, account_password from account\n" +
-				"inner join user on account.user_id = user.user_id\n" +
-				"where account_username = '" + username.getText() + "' and account_password = '" + password.getText() + "';";
-		LibrarianAccount librarianAccount = LibrarianAccount.fromResultSet(sqlUtils.exequteSelectQuery(sql));
-		if(librarianAccount == null) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Account account = session.createQuery(
+				"from Account where accountUsername = '" + username.getText() + "' and accountPassword = '" + password.getText() + "'", Account.class
+		).uniqueResult();
+		if(account == null) {
 			incorrectPassword.setVisible(true);
 			return;
 		}
-		logIn(librarianAccount);
+		logIn(account);
 	}
 
-	private void logIn(LibrarianAccount account) {
+	private void logIn(Account account) {
 		username.requestFocus();
 		username.setText("");
 		password.setText("");
 		incorrectPassword.setVisible(false);
 
-		options.setLoggedInUser(account);
-		options.switchStage();
+		options.libraryStage(account);
 	}
 
 }

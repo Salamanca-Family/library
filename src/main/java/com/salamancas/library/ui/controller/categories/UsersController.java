@@ -1,9 +1,6 @@
 package com.salamancas.library.ui.controller.categories;
 
-import com.salamancas.library.model.legacy.User;
-import com.salamancas.library.model.persistence.view.UserForUsersCategory;
-import com.salamancas.library.ui.controller.dialog.UserController;
-import com.salamancas.library.util.Assets;
+import com.salamancas.library.model.view.UserForUsersCategory;
 import com.salamancas.library.util.Options;
 import com.salamancas.library.util.sql.HibernateUtil;
 import com.salamancas.library.util.sql.SQLUtils;
@@ -11,17 +8,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import org.hibernate.Session;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Period;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class UsersController implements Initializable {
@@ -134,20 +131,8 @@ public class UsersController implements Initializable {
 	}
 
 	@FXML
-	private void userAdd() throws IOException {
-		FXMLLoader loader = new FXMLLoader(Assets.userDialog);
-		DialogPane root = loader.load();
-		UserController controller = loader.getController();
-		controller.setUser(new User());
+	private void userAdd() {
 
-		Dialog<ButtonType> dialog = new Dialog<>();
-		dialog.setTitle("Novi korisnik");
-		dialog.setDialogPane(root);
-
-		Optional<ButtonType> result = dialog.showAndWait();
-		if(result.isPresent()) {
-			System.out.println(controller.getUser());
-		}
 	}
 
 	@FXML

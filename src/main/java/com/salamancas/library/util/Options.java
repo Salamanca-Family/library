@@ -1,6 +1,7 @@
 package com.salamancas.library.util;
 
-import com.salamancas.library.model.legacy.LibrarianAccount;
+import com.salamancas.library.model.table.Account;
+import com.salamancas.library.ui.controller.MainController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -11,19 +12,10 @@ public class Options {
 
 	private static Options instance;
 
-	private LibrarianAccount loggedInUser;
 	private Stage logIn;
 	private Stage library;
 
 	private Options() {}
-
-	public static void initialize(Stage logIn) {
-		if(instance != null) {
-			return;
-		}
-		instance = new Options();
-		instance.logIn = logIn;
-	}
 
 	public static Options getInstance() {
 		if(instance == null) {
@@ -33,37 +25,41 @@ public class Options {
 		return instance;
 	}
 
-	public void switchStage() {
-		if(library == null) {
-			try {
-				Stage library = new Stage();
-				FXMLLoader fxmlLoader = new FXMLLoader(Assets.library);
-				Scene scene = new Scene(fxmlLoader.load());
-				scene.getStylesheets().add(getClass().getResource("/com/salamancas/library/assets/css/main.css").toExternalForm());
-				library.setScene(scene);
-				library.setResizable(false);
-				library.setTitle("Library");
-				this.library = library;
-			} catch(IOException e) {
-				e.printStackTrace();
-			}
-		}
-		if(logIn.isShowing()) {
-			logIn.hide();
-			library.show();
+	public static void initialize(Stage logIn) {
+		if(instance != null) {
 			return;
 		}
+		instance = new Options();
+		instance.logIn = logIn;
+	}
+
+	public void newLibrary(Account account) {
+		try {
+			library = new Stage();
+			FXMLLoader fxmlLoader = new FXMLLoader(Assets.library);
+			Scene scene = new Scene(fxmlLoader.load());
+			((MainController) fxmlLoader.getController()).setLoggedIn(account);
+			scene.getStylesheets().add(Options.class.getResource("/com/salamancas/library/assets/css/main.css").toExternalForm());
+			library.setScene(scene);
+			library.setResizable(false);
+			library.setTitle("Library");
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void logInStage() {
 		library.hide();
 		library = null;
 		logIn.show();
 	}
 
-	public LibrarianAccount getLoggedInUser() {
-		return loggedInUser;
-	}
-
-	public void setLoggedInUser(LibrarianAccount loggedInUser) {
-		this.loggedInUser = loggedInUser;
+	public void libraryStage(Account account) {
+		if(library == null) {
+			newLibrary(account);
+		}
+		logIn.hide();
+		library.show();
 	}
 
 }

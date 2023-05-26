@@ -1,4 +1,4 @@
-package com.salamancas.library.model.persistence.view;
+package com.salamancas.library.model.view;
 
 import jakarta.persistence.*;
 import javafx.beans.property.SimpleStringProperty;

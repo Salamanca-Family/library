@@ -1,7 +1,7 @@
 package com.salamancas.library.ui.controller.categories;
 
-import com.salamancas.library.model.persistence.table.User;
-import com.salamancas.library.model.persistence.view.CopyForTransactionsCategory;
+import com.salamancas.library.model.table.User;
+import com.salamancas.library.model.view.CopyForTransactionsCategory;
 import com.salamancas.library.util.Options;
 import com.salamancas.library.util.sql.HibernateUtil;
 import com.salamancas.library.util.sql.SQLUtils;

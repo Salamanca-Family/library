@@ -1,4 +1,4 @@
-package com.salamancas.library.model.persistence.view;
+package com.salamancas.library.model.view;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
