@@ -13,6 +13,7 @@ public class User {
 	private String userBirthDate;
 	private String userAddress;
 	private Collection<Account> accounts;
+	private Collection<TypeOfUser> types;
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
@@ -72,6 +73,15 @@ public class User {
 
 	public void setAccounts(Collection<Account> accounts) {
 		this.accounts = accounts;
+	}
+
+	@OneToMany(mappedBy = "user")
+	public Collection<TypeOfUser> getTypes() {
+		return types;
+	}
+
+	public void setTypes(Collection<TypeOfUser> types) {
+		this.types = types;
 	}
 
 	@Override

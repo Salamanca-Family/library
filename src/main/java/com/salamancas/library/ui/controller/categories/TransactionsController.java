@@ -73,7 +73,6 @@ public class TransactionsController implements Initializable {
 		});
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
 		ObservableList<CopyForTransactionsCategory> list = FXCollections.observableArrayList(session.createQuery("from CopyForTransactionsCategory", CopyForTransactionsCategory.class).list());
 		session.close();
 		
@@ -100,8 +99,7 @@ public class TransactionsController implements Initializable {
 
 	private void initUsers(){
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-		ObservableList<User> list = FXCollections.observableArrayList(session.createQuery("from User", User.class).list());
+		ObservableList<User> list = FXCollections.observableArrayList(session.createQuery("from User u inner join u.types tu on u = tu.user inner join Type t on tu.type = t where t.typeId != 4", User.class).list());
 		session.close();
 
 		FilteredList<User> filteredList = new FilteredList<>(list);

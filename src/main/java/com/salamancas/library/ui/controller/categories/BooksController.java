@@ -57,7 +57,6 @@ public class BooksController implements Initializable {
 		bookAuthors.setCellValueFactory(data -> data.getValue().authorNameProperty());
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
 		ObservableList<BookForBooksCategory> list = FXCollections.observableArrayList(session.createQuery("from BookForBooksCategory", BookForBooksCategory.class).list());
 		session.close();
 
@@ -88,7 +87,6 @@ public class BooksController implements Initializable {
 		copyPublisher.setCellValueFactory(data -> data.getValue().publisherProperty());
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
 		ObservableList<CopyForBooksCategory> list = FXCollections.observableArrayList(session.createQuery("from CopyForBooksCategory", CopyForBooksCategory.class).list());
 		session.close();
 

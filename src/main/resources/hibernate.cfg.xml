@@ -7,7 +7,7 @@
     <property name="dialect">org.hibernate.community.dialect.SQLiteDialect</property>
     <property name="connection.url">jdbc:sqlite:data.db</property>
     <property name="connection.driver_class">org.sqlite.JDBC</property>
-      <mapping class="com.salamancas.library.model.table.Author"/>
+    <mapping class="com.salamancas.library.model.table.Author"/>
     <mapping class="com.salamancas.library.model.table.Book"/>
     <mapping class="com.salamancas.library.model.table.Copy"/>
     <mapping class="com.salamancas.library.model.table.Publisher"/>
@@ -17,5 +17,7 @@
     <mapping class="com.salamancas.library.model.view.CopyForTransactionsCategory"/>
     <mapping class="com.salamancas.library.model.view.UserForUsersCategory"/>
       <mapping class="com.salamancas.library.model.table.Account"/>
+      <mapping class="com.salamancas.library.model.table.Type"/>
+    <mapping class="com.salamancas.library.model.table.TypeOfUser"/>
   </session-factory>
 </hibernate-configuration>

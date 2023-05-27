@@ -3,7 +3,6 @@ package com.salamancas.library.ui.controller.categories;
 import com.salamancas.library.model.view.UserForUsersCategory;
 import com.salamancas.library.util.Options;
 import com.salamancas.library.util.sql.HibernateUtil;
-import com.salamancas.library.util.sql.SQLUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -39,12 +38,10 @@ public class UsersController implements Initializable {
 	private TextField txfSearchBar;
 
 	Options options;
-	SQLUtils sqlUtils;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		options = Options.getInstance();
-		sqlUtils = SQLUtils.getInstance();
 
 		name.setCellValueFactory(data -> data.getValue().nameProperty());
 		surname.setCellValueFactory(data -> data.getValue().surnameProperty());
@@ -96,7 +93,6 @@ public class UsersController implements Initializable {
 		});
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
 		ObservableList<UserForUsersCategory> list = FXCollections.observableArrayList(session.createQuery("from UserForUsersCategory", UserForUsersCategory.class).list());
 		session.close();
 
