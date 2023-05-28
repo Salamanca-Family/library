@@ -34,7 +34,6 @@ public class BookForBooksCategory {
 		this.bookId = bookId;
 	}
 
-	@Id
 	@Column(name = "BOOK_TITLE")
 	public String getBookTitle() {
 		return bookTitle.get();
@@ -48,7 +47,6 @@ public class BookForBooksCategory {
 		return bookTitle;
 	}
 
-	@Id
 	@Column(name = "AUTHOR_NAME")
 	public String getAuthorName() {
 		return authorName.get();

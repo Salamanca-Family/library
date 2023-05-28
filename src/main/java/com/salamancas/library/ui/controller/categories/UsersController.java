@@ -96,6 +96,9 @@ public class UsersController implements Initializable {
 		ObservableList<UserForUsersCategory> list = FXCollections.observableArrayList(session.createQuery("from UserForUsersCategory", UserForUsersCategory.class).list());
 		session.close();
 
+		System.out.println("Users: users");
+		System.out.println(list + "\n");
+
 		FilteredList<UserForUsersCategory> filteredList = new FilteredList<>(list);
 		filteredList.setPredicate(data -> true);
 

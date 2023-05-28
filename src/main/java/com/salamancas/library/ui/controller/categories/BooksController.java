@@ -60,12 +60,15 @@ public class BooksController implements Initializable {
 		ObservableList<BookForBooksCategory> list = FXCollections.observableArrayList(session.createQuery("from BookForBooksCategory", BookForBooksCategory.class).list());
 		session.close();
 
+		System.out.println("Books: books");
+		System.out.println(list);
 		for(int i = 1; i < list.size(); i++) {
 			if(list.get(i - 1).getBookId().equals(list.get(i).getBookId())) {
 				list.get(i).setAuthorName(list.get(i).getAuthorName() + ", " + list.get(i - 1).getAuthorName());
 				list.remove(i-- - 1);
 			}
 		}
+		System.out.println(list);
 
 		FilteredList<BookForBooksCategory> filteredList = new FilteredList<>(list);
 		filteredList.setPredicate(data -> true);
@@ -89,6 +92,9 @@ public class BooksController implements Initializable {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		ObservableList<CopyForBooksCategory> list = FXCollections.observableArrayList(session.createQuery("from CopyForBooksCategory", CopyForBooksCategory.class).list());
 		session.close();
+
+		System.out.println("Books: copies");
+		System.out.println(list + "\n");
 
 		FilteredList<CopyForBooksCategory> filteredList = new FilteredList<>(list);
 		filteredList.setPredicate(data -> true);

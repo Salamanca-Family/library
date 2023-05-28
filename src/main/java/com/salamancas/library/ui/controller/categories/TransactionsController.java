@@ -75,12 +75,15 @@ public class TransactionsController implements Initializable {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		ObservableList<CopyForTransactionsCategory> list = FXCollections.observableArrayList(session.createQuery("from CopyForTransactionsCategory", CopyForTransactionsCategory.class).list());
 		session.close();
-		
+
+		System.out.println("Transactions: copies");
+		System.out.println(list);
 		for(int i = 1; i < list.size(); i++) {
 			if(list.get(i - 1).getCopyId().equals(list.get(i).getCopyId())) {
 				list.remove(i-- - 1);
 			}
 		}
+		System.out.println(list);
 
 		FilteredList<CopyForTransactionsCategory> filteredList = new FilteredList<>(list);
 		filteredList.setPredicate(data -> true);
@@ -101,6 +104,9 @@ public class TransactionsController implements Initializable {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		ObservableList<User> list = FXCollections.observableArrayList(session.createQuery("from User u inner join u.types tu on u = tu.user inner join Type t on tu.type = t where t.typeId != 4", User.class).list());
 		session.close();
+
+		System.out.println("Transactions: users");
+		System.out.println(list + "\n");
 
 		FilteredList<User> filteredList = new FilteredList<>(list);
 		filteredList.setPredicate(data -> true);

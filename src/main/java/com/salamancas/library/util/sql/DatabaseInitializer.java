@@ -214,10 +214,6 @@ public class DatabaseInitializer {
 			      references USER (USER_ID)
 			);
 			--==============================================================
-			-- View: ACCOUNT_FOR_LOG_IN
-			--==============================================================
-			   
-			--==============================================================
 			-- View: BOOK_FOR_BOOKS_CATEGORY
 			--==============================================================
 			create view BOOK_FOR_BOOKS_CATEGORY as
@@ -235,7 +231,7 @@ public class DatabaseInitializer {
 			inner join BOOK B on B.BOOK_ID = COPY.BOOK_ID
 			inner join PUBLISHER P on P.PUBLISHER_ID = COPY.PUBLISHER_ID;
 			--==============================================================
-			-- View: USER_FOR_USER_CATEGORY
+			-- View: USER_FOR_USERS_CATEGORY
 			--==============================================================
 			create view USER_FOR_USERS_CATEGORY as
 			select USER.USER_ID, USER.USER_NAME, USER.USER_SURNAME, T.TYPE_NAME, Y1.YEAR_NAME as 'STUDENT_YEAR', Y2.YEAR_NAME as 'HOMEROOM_YEAR', C1.CLASS_INDEX as 'CLASS_INDEX', C2.CLASS_INDEX as 'HOMEROOM_TEACHER'
@@ -250,16 +246,14 @@ public class DatabaseInitializer {
 			left join TYPE T on T.TYPE_ID = TOU.TYPE_ID
 			where HT.DATE_TO is null and SIC.DATE_TO is null and TOU.DATE_TO is null and T.TYPE_ID != 4;
 			--==============================================================
-			-- View: COPY_FOR_TRANSACTION
+			-- View: COPY_FOR_TRANSACTIONS_CATEGORY
 			--==============================================================
 			create view COPY_FOR_TRANSACTIONS_CATEGORY as
 			select COPY.COPY_ID, COPY_SERIAL_NUMBER, BOOK_TITLE, PUBLISHER_NAME, DATE_FROM, DATE_TO
 			from COPY
 			inner join BOOK B on B.BOOK_ID = COPY.BOOK_ID
 			inner join PUBLISHER P on P.PUBLISHER_ID = COPY.PUBLISHER_ID
-			left join BORROW on BORROW.COPY_ID = COPY.COPY_ID
-			order by COPY_SERIAL_NUMBER, DATE_FROM desc, DATE_TO desc;
-			   
+			left join BORROW on BORROW.COPY_ID = COPY.COPY_ID;
 			-- Pre-generated
 			-- Type
 			INSERT INTO TYPE (TYPE_ID, TYPE_NAME) VALUES (1, 'Učenik');
@@ -305,6 +299,7 @@ public class DatabaseInitializer {
 			INSERT INTO AUTHOR (AUTHOR_NAME) VALUES ('I. Andric');
 			INSERT INTO AUTHOR (AUTHOR_NAME) VALUES ('J. J. Zmaj');
 			INSERT INTO AUTHOR (AUTHOR_NAME) VALUES ('Branislav Nušić');
+			INSERT INTO AUTHOR (AUTHOR_NAME) VALUES ('Fjodor Dostojevski');
 			-- Publisher
 			INSERT INTO PUBLISHER (PUBLISHER_NAME) VALUES ('Laguna');
 			INSERT INTO PUBLISHER (PUBLISHER_NAME) VALUES ('Zavod za udžbenike');

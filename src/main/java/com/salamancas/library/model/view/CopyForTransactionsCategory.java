@@ -8,16 +8,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import org.hibernate.annotations.Immutable;
 
-import java.io.Externalizable;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
 import java.util.Objects;
 
 @Entity
 @Immutable
 @Table(name = "COPY_FOR_TRANSACTIONS_CATEGORY", schema = "main")
-public class CopyForTransactionsCategory implements Externalizable {
+public class CopyForTransactionsCategory {
 
 	private Integer copyId;
 	private StringProperty copySerialNumber;
@@ -42,7 +38,6 @@ public class CopyForTransactionsCategory implements Externalizable {
 		this.copyId = copyId;
 	}
 
-	@Id
 	@Column(name = "COPY_SERIAL_NUMBER")
 	public String getCopySerialNumber() {
 		return copySerialNumber.get();
@@ -56,7 +51,6 @@ public class CopyForTransactionsCategory implements Externalizable {
 		return copySerialNumber;
 	}
 
-	@Id
 	@Column(name = "BOOK_TITLE")
 	public String getBookTitle() {
 		return bookTitle.get();
@@ -70,7 +64,6 @@ public class CopyForTransactionsCategory implements Externalizable {
 		return bookTitle;
 	}
 
-	@Id
 	@Column(name = "PUBLISHER_NAME")
 	public String getPublisherName() {
 		return publisherName.get();
@@ -84,7 +77,6 @@ public class CopyForTransactionsCategory implements Externalizable {
 		return publisherName;
 	}
 
-	@Id
 	@Column(name = "DATE_FROM")
 	public String getDateFrom() {
 		return dateFrom;
@@ -94,7 +86,6 @@ public class CopyForTransactionsCategory implements Externalizable {
 		this.dateFrom = dateFrom;
 	}
 
-	@Id
 	@Column(name = "DATE_TO")
 	public String getDateTo() {
 		return dateTo;
@@ -120,20 +111,6 @@ public class CopyForTransactionsCategory implements Externalizable {
 	@Override
 	public String toString() {
 		return copyId.toString() + " " + dateFrom + " " + dateTo;
-	}
-
-	@Override
-	public void writeExternal(ObjectOutput out) throws IOException {
-		out.writeObject(getCopySerialNumber());
-		out.writeObject(getBookTitle());
-		out.writeObject(getPublisherName());
-	}
-
-	@Override
-	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-		setCopySerialNumber((String) in.readObject());
-		setBookTitle((String) in.readObject());
-		setPublisherName((String) in.readObject());
 	}
 
 }

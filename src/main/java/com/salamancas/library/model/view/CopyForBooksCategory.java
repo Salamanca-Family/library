@@ -37,7 +37,6 @@ public class CopyForBooksCategory {
 		this.copyId = copyId;
 	}
 
-	@Id
 	@Column(name = "COPY_SERIAL_NUMBER")
 	public String getCopySerialNumber() {
 		return copySerialNumber.get();
@@ -51,7 +50,6 @@ public class CopyForBooksCategory {
 		return copySerialNumber;
 	}
 
-	@Id
 	@Column(name = "COPY_ISBN")
 	public String getCopyIsbn() {
 		return copyIsbn;
@@ -61,7 +59,6 @@ public class CopyForBooksCategory {
 		this.copyIsbn = copyIsbn;
 	}
 
-	@Id
 	@Column(name = "BOOK_TITLE")
 	public String getBookTitle() {
 		return bookTitle.get();
@@ -75,7 +72,6 @@ public class CopyForBooksCategory {
 		return bookTitle;
 	}
 
-	@Id
 	@Column(name = "PUBLISHER_NAME")
 	public String getPublisherName() {
 		return publisherName.get();
@@ -100,6 +96,11 @@ public class CopyForBooksCategory {
 	@Override
 	public int hashCode() {
 		return Objects.hash(copyId, copySerialNumber, bookTitle, publisherName);
+	}
+
+	@Override
+	public String toString() {
+		return copySerialNumber.get() + " " + bookTitle.get();
 	}
 
 }

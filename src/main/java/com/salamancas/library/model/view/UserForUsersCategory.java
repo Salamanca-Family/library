@@ -1,18 +1,17 @@
 package com.salamancas.library.model.view;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-import java.io.Externalizable;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
 import java.util.Objects;
 
 @Entity
 @Table(name = "USER_FOR_USERS_CATEGORY", schema = "main")
-public class UserForUsersCategory implements Externalizable {
+public class UserForUsersCategory {
 
 	private Integer userId;
 	private StringProperty userName;
@@ -31,7 +30,6 @@ public class UserForUsersCategory implements Externalizable {
 		homeroomTeacher = new SimpleStringProperty(this, "homeroomTeacher");
 	}
 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	@Column(name = "USER_ID")
 	public Integer getUserId() {
@@ -42,7 +40,6 @@ public class UserForUsersCategory implements Externalizable {
 		this.userId = userId;
 	}
 
-	@Id
 	@Column(name = "USER_NAME")
 	public String getUserName() {
 		return userName.get();
@@ -56,7 +53,6 @@ public class UserForUsersCategory implements Externalizable {
 		return userName;
 	}
 
-	@Id
 	@Column(name = "USER_SURNAME")
 	public String getUserSurname() {
 		return userSurname.get();
@@ -70,7 +66,6 @@ public class UserForUsersCategory implements Externalizable {
 		return userSurname;
 	}
 
-	@Id
 	@Column(name = "TYPE_NAME")
 	public String getTypeName() {
 		return typeName.get();
@@ -84,7 +79,6 @@ public class UserForUsersCategory implements Externalizable {
 		return typeName;
 	}
 
-	@Id
 	@Column(name = "CLASS_INDEX")
 	public String getClassIndex() {
 		return classIndex.get();
@@ -98,7 +92,6 @@ public class UserForUsersCategory implements Externalizable {
 		return classIndex;
 	}
 
-	@Id
 	@Column(name = "HOMEROOM_TEACHER")
 	public String getHomeroomTeacher() {
 		return homeroomTeacher.get();
@@ -112,7 +105,6 @@ public class UserForUsersCategory implements Externalizable {
 		return homeroomTeacher;
 	}
 
-	@Id
 	@Column(name = "STUDENT_YEAR")
 	public String getStudentYear() {
 		return studentYear;
@@ -122,7 +114,6 @@ public class UserForUsersCategory implements Externalizable {
 		this.studentYear = studentYear;
 	}
 
-	@Id
 	@Column(name = "HOMEROOM_YEAR")
 	public String getHomeroomYear() {
 		return homeroomYear;
@@ -146,21 +137,8 @@ public class UserForUsersCategory implements Externalizable {
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput out) throws IOException {
-		out.writeObject(getUserName());
-		out.writeObject(getUserSurname());
-		out.writeObject(getClassIndex());
-		out.writeObject(getHomeroomTeacher());
-		out.writeObject(getTypeName());
-	}
-
-	@Override
-	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-		setUserName((String) in.readObject());
-		setUserSurname((String) in.readObject());
-		setClassIndex((String) in.readObject());
-		setHomeroomTeacher((String) in.readObject());
-		setTypeName((String) in.readObject());
+	public String toString() {
+		return userName.get() + " " + userSurname.get();
 	}
 
 }
