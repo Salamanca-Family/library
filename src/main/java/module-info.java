@@ -15,4 +15,5 @@ module com.salamancas.library {
 	opens com.salamancas.library.ui.controller.categories to javafx.fxml;
 	opens com.salamancas.library.model.table to org.hibernate.orm.core;
 	opens com.salamancas.library.model.view to org.hibernate.orm.core;
+	exports com.salamancas.library.ui.controller.dialog to javafx.fxml;
 }

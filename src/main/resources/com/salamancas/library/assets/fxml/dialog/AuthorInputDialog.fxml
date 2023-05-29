@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import org.controlsfx.control.SearchableComboBox?>
+<DialogPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.salamancas.library.ui.controller.dialog.AuthorInputController">
+   <content>
+      <AnchorPane maxHeight="300.0" prefWidth="600.0">
+         <children>
+            <SearchableComboBox layoutX="213.0" layoutY="169.0" />
+         </children>
+      </AnchorPane>
+   </content>
+   <buttonTypes>
+      <ButtonType fx:constant="OK" />
+      <ButtonType fx:constant="CANCEL" />
+   </buttonTypes>
+</DialogPane>

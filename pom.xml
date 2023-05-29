@@ -40,6 +40,11 @@
             <artifactId>hibernate-community-dialects</artifactId>
             <version>6.1.7.Final</version>
         </dependency>
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>11.1.2</version>
+        </dependency>
 
     </dependencies>
 

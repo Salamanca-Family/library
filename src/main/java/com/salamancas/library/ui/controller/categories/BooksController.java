@@ -1,7 +1,9 @@
 package com.salamancas.library.ui.controller.categories;
 
+import com.salamancas.library.model.table.Author;
 import com.salamancas.library.model.view.BookForBooksCategory;
 import com.salamancas.library.model.view.CopyForBooksCategory;
+import com.salamancas.library.util.Assets;
 import com.salamancas.library.util.Options;
 import com.salamancas.library.util.sql.HibernateUtil;
 import com.salamancas.library.util.sql.SQLUtils;
@@ -9,13 +11,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import org.hibernate.Session;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -110,9 +111,13 @@ public class BooksController implements Initializable {
 
 		tblCopies.setItems(filteredList);
 	}
-	@FXML
-	private void bookAdd() {
 
+	@FXML
+	private void bookAdd() throws IOException {
+		FXMLLoader loader = new FXMLLoader(Assets.authorInputDialog);
+		Dialog<Author> dialog = new Dialog<>();
+		dialog.setDialogPane(loader.load());
+		dialog.show();
 	}
 
 	@FXML
