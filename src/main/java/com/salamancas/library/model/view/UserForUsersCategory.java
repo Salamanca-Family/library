@@ -17,10 +17,10 @@ public class UserForUsersCategory {
 	private StringProperty userName;
 	private StringProperty userSurname;
 	private StringProperty typeName;
-	private StringProperty classIndex;
-	private StringProperty homeroomTeacher;
 	private String studentYear;
+	private StringProperty classIndex;
 	private String homeroomYear;
+	private StringProperty homeroomTeacher;
 
 	public UserForUsersCategory() {
 		userName = new SimpleStringProperty(this, "userName");
@@ -79,6 +79,15 @@ public class UserForUsersCategory {
 		return typeName;
 	}
 
+	@Column(name = "STUDENT_YEAR")
+	public String getStudentYear() {
+		return studentYear;
+	}
+
+	public void setStudentYear(String studentYear) {
+		this.studentYear = studentYear;
+	}
+
 	@Column(name = "CLASS_INDEX")
 	public String getClassIndex() {
 		return classIndex.get();
@@ -90,6 +99,15 @@ public class UserForUsersCategory {
 
 	public StringProperty classIndexProperty() {
 		return classIndex;
+	}
+
+	@Column(name = "HOMEROOM_YEAR")
+	public String getHomeroomYear() {
+		return homeroomYear;
+	}
+
+	public void setHomeroomYear(String homeroomYear) {
+		this.homeroomYear = homeroomYear;
 	}
 
 	@Column(name = "HOMEROOM_TEACHER")
@@ -105,35 +123,17 @@ public class UserForUsersCategory {
 		return homeroomTeacher;
 	}
 
-	@Column(name = "STUDENT_YEAR")
-	public String getStudentYear() {
-		return studentYear;
-	}
-
-	public void setStudentYear(String studentYear) {
-		this.studentYear = studentYear;
-	}
-
-	@Column(name = "HOMEROOM_YEAR")
-	public String getHomeroomYear() {
-		return homeroomYear;
-	}
-
-	public void setHomeroomYear(String homeroomYear) {
-		this.homeroomYear = homeroomYear;
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		if(this == o) return true;
 		if(o == null || getClass() != o.getClass()) return false;
-		UserForUsersCategory temp = (UserForUsersCategory) o;
-		return Objects.equals(userId, temp.userId) && Objects.equals(userName, temp.userName) && Objects.equals(userSurname, temp.userSurname) && Objects.equals(classIndex, temp.classIndex) && Objects.equals(typeName, temp.typeName);
+		UserForUsersCategory that = (UserForUsersCategory) o;
+		return Objects.equals(userId, that.userId) && Objects.equals(userName, that.userName) && Objects.equals(userSurname, that.userSurname) && Objects.equals(typeName, that.typeName) && Objects.equals(studentYear, that.studentYear) && Objects.equals(classIndex, that.classIndex) && Objects.equals(homeroomYear, that.homeroomYear) && Objects.equals(homeroomTeacher, that.homeroomTeacher);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(userId, userName, userSurname, classIndex, typeName);
+		return Objects.hash(userId, userName, userSurname, typeName, studentYear, classIndex, homeroomYear, homeroomTeacher);
 	}
 
 	@Override

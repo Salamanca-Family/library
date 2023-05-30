@@ -16,6 +16,7 @@ import java.util.Objects;
 public class BookForBooksCategory {
 
 	private Integer bookId;
+	private Integer authorId;
 	private StringProperty bookTitle;
 	private StringProperty authorName;
 
@@ -25,13 +26,23 @@ public class BookForBooksCategory {
 	}
 
 	@Id
-	@Column(name = "BOOK_ID", updatable = false, nullable = false)
+	@Column(name = "BOOK_ID")
 	public Integer getBookId() {
 		return bookId;
 	}
 
 	public void setBookId(Integer bookId) {
 		this.bookId = bookId;
+	}
+
+	@Id
+	@Column(name = "AUTHOR_ID")
+	public Integer getAuthorId() {
+		return authorId;
+	}
+
+	public void setAuthorId(Integer authorId) {
+		this.authorId = authorId;
 	}
 
 	@Column(name = "BOOK_TITLE")
@@ -65,17 +76,17 @@ public class BookForBooksCategory {
 		if(this == o) return true;
 		if(o == null || getClass() != o.getClass()) return false;
 		BookForBooksCategory that = (BookForBooksCategory) o;
-		return Objects.equals(bookId, that.bookId) && Objects.equals(bookTitle.get(), that.bookTitle.get()) && Objects.equals(authorName.get(), that.authorName.get());
+		return Objects.equals(bookId, that.bookId) && Objects.equals(authorId, that.authorId) && Objects.equals(bookTitle, that.bookTitle) && Objects.equals(authorName, that.authorName);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(bookId, bookTitle.get(), authorName.get());
+		return Objects.hash(bookId, authorId, bookTitle, authorName);
 	}
 
 	@Override
 	public String toString() {
-		return "[" + bookId + " | " + bookTitle.get() + " | " + authorName.get() + "]";
+		return "[" + bookId + "][" + authorId + "] " + bookTitle.get() + " " + authorName.get();
 	}
 
 }

@@ -34,11 +34,6 @@ public class MainController implements Initializable {
 	private Label usersButton;
 
 	@FXML
-	private ImageView transactionIcon;
-	@FXML
-	private Label transactionsButton;
-
-	@FXML
 	private ImageView settingsIcon;
 	@FXML
 	private Label settingsButton;
@@ -55,7 +50,6 @@ public class MainController implements Initializable {
 		userIcon.setImage(Assets.userIcon);
 		bookIcon.setImage(Assets.bookIcon);
 		usersIcon.setImage(Assets.usersIcon);
-		transactionIcon.setImage(Assets.transactionIcon);
 		settingsIcon.setImage(Assets.settingsIcon);
 
 		books();
@@ -83,12 +77,6 @@ public class MainController implements Initializable {
 		switchCategory(loader, usersButton);
 	}
 
-	@FXML
-	private void transactions() {
-		FXMLLoader loader = new FXMLLoader(Assets.transaction);
-		switchCategory(loader, transactionsButton);
-	}
-
 	private void switchCategory(FXMLLoader loader, Label transactionsButton) {
 		try {
 			ObservableList<Node> list = container.getChildren();
@@ -107,7 +95,6 @@ public class MainController implements Initializable {
 	public void clearButtonColor() {
 		booksButton.getStyleClass().remove("selected");
 		usersButton.getStyleClass().remove("selected");
-		transactionsButton.getStyleClass().remove("selected");
 		settingsButton.getStyleClass().remove("selected");
 	}
 

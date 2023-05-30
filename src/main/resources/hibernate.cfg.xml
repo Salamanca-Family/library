@@ -14,7 +14,6 @@
     <mapping class="com.salamancas.library.model.table.User"/>
     <mapping class="com.salamancas.library.model.view.BookForBooksCategory"/>
     <mapping class="com.salamancas.library.model.view.CopyForBooksCategory"/>
-    <mapping class="com.salamancas.library.model.view.CopyForTransactionsCategory"/>
     <mapping class="com.salamancas.library.model.view.UserForUsersCategory"/>
       <mapping class="com.salamancas.library.model.table.Account"/>
       <mapping class="com.salamancas.library.model.table.Type"/>

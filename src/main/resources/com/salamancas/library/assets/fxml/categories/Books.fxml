@@ -6,9 +6,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane prefHeight="768.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.salamancas.library.ui.controller.categories.BooksController">
+<AnchorPane prefHeight="600.0" prefWidth="775.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.salamancas.library.ui.controller.categories.BooksController">
    <children>
-      <TableView fx:id="tblBooks" layoutX="14.0" layoutY="204.0" prefHeight="550.0" prefWidth="350.0">
+      <TableView fx:id="tblBooks" layoutX="14.0" layoutY="204.0" prefHeight="382.0" prefWidth="350.0">
         <columns>
           <TableColumn fx:id="bookTitle" text="Naslov" />
             <TableColumn fx:id="bookAuthors" prefWidth="75.0" text="Autor(i)" />
@@ -17,7 +17,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TableView fx:id="tblCopies" layoutX="385.0" layoutY="204.0" prefHeight="550.0" prefWidth="400.0">
+      <TableView fx:id="tblCopies" layoutX="385.0" layoutY="204.0" prefHeight="382.0" prefWidth="375.0">
         <columns>
           <TableColumn fx:id="copySerial" prefWidth="0.0" text="Serijski broj" />
           <TableColumn fx:id="copyTitle" prefWidth="0.0" text="Naslov" />
@@ -55,7 +55,7 @@
             </Button>
          </children>
       </VBox>
-      <VBox alignment="CENTER" layoutX="485.0" layoutY="4.0" prefHeight="150.0" prefWidth="200.0">
+      <VBox alignment="CENTER" layoutX="473.0" layoutY="4.0" prefHeight="200.0" prefWidth="200.0">
          <children>
             <Button mnemonicParsing="false" onAction="#copyAdd" prefHeight="35.0" prefWidth="150.0" text="Dodaj primerak">
                <VBox.margin>
@@ -81,13 +81,13 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
+            <Button mnemonicParsing="false" onAction="#copyDetails" prefHeight="35.0" prefWidth="150.0" text="Detalji">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
          </children>
       </VBox>
-      <Button layoutX="510.0" layoutY="155.0" mnemonicParsing="false" onAction="#copyDetails" prefHeight="35.0" prefWidth="150.0" text="Detalji">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-      </Button>
       <TextField fx:id="txfSearchBar" layoutX="44.0" layoutY="160.0" prefWidth="320.0" promptText="Search..." />
       <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="14.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
          <image>

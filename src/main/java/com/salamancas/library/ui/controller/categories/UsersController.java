@@ -61,7 +61,7 @@ public class UsersController implements Initializable {
 						return;
 					}
 					String userYear = user.getStudentYear();
-					if(userYear == null) {
+					if(userYear == null || user.getHomeroomYear() != null) {
 						this.setText("/");
 						return;
 					}
